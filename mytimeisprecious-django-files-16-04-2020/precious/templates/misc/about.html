@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<span id="about" class="anchor"></span>
+<div class="container about">
+  <h2>I developed this app to be more productive. Here's how it went...</h2>
+  {% spaceless %}
+  <div class="about__card">
+      <div class="about__picture">
+          <img class="about__image" src="{% static 'img/author.jpg' %}" alt="Anton Vinokurov" />
+      </div>
+
+      <div class="about__story">
+          <p class="about__text">
+              "We have so many distractions that sometimes don't notice how the time passes by. I decided to log each hour of my work for an experiment. I counted an hour when I procrastinated more than 15 minutes as a "bad" hour. At the end of the day I counted and to my amusement roughly I would do only 5 hours of solid work.
+<br /><br />
+This had to change. When you know you will log an hour, you start to value it more. Think, instead of being outside you dedicated it to working on something useful (or not?) at the computer.
+<br /><br />
+Soon I’ve got to an average of 8 good hours. It's incredible how much I was getting done.
+<br /><br />
+Try it, get ready for your tests, meet your project deadlines or just do awesome projects and have more free time!"
+          </p>
+          <span class="about__signature">- Anton Vinokurov</span>
+      </div>
+  </div>
+  {% endspaceless %}
+</div>

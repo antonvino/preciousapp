@@ -1,0 +1,32 @@
+{% extends 'day/base.html' %}
+{% load staticfiles widget_tweaks filter_tags %}
+
+
+{% block stats %}
+
+    <div class="stats__filters">
+      {# FILTER FORM #}
+      <form action="{% url 'tags-filter' %}" method="post" id="filter-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="employer" class="sr-only">Working for:</label>
+          {{ form.employer|add_class:"form-control stats__filters-main-tag"|add_error_class:"error"|attr:"placeholder:employer" }}
+            <label for="tags" class="sr-only">on:</label>
+          {{ form.tags|add_class:"form-control stats__filters-tags"|add_error_class:"error"|attr:"placeholder:projects" }}
+            <input type="submit" class="btn" value="Filter">
+            <p>{{ form.non_field_errors }}</p>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="stats__title">
+        <h1>Work stats for <label>{{ employer }}</label>{% if tags %} on <small>{{ tags }}</small>{% endif %}</h1>
+    </div>
+
+{% endblock %}
+
+{% block stats_ticks %}
+  var reduce_x_ticks = true;
+{% endblock %}

@@ -1,0 +1,57 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+h1 small {color: #888;}
+h1 label {color: #f12b2b;}
+
+#stats                              {width: 960px; height: auto; margin: 0 auto; padding-top: 20px; position: relative;}
+    /*{position: relative; margin: -20px 0 88px; width: 750px; padding: 20px 80px 70px; background-color: #fff; }	*/							
+#stats 								{text-align: center; font-size: 21px; line-height: 30px; font-style: italic; color: #676767; }
+	#stats h1							{margin: 70px 0 20px; font-size: 40px; font-weight: normal; font-style: normal; color: #333;}
+		#stats h1 small				{margin-top: 6px; display: block; font-size: 24px; }
+	#stats h2							{margin-top: 20px; font-weight: normal; }
+	#stats h4							{margin-top: -10px; font-size: 24px; font-weight: normal; color: #676767; }
+	#stats p 	 						{padding: 10px 0; }
+	#stats a							{color: #f12b2b; }
+	#stats a:hover						{text-decoration: underline; }
+	#stats textarea					{margin: 20px 20px 5px; width: 810px; height: 300px;  padding: 30px; font-size: 15px; line-height: 22px;  color: #333; }
+	#stats textarea:focus				{background-color: #ececec; }
+	#stats form						{margin-top: 30px; }
+		#stats form p 					{padding: 0; }
+		#stats form a					{font-size: 14px; color: #676767; }
+	#stats .ta 						{padding: 20px; font-size: 16px; line-height: 25px; background-color: #eee; text-align: justify;  color: #555; }
+		#stats .ta_area				{height: 420px; padding-right: 20px;  overflow: auto; }
+		#stats .ta ul li				{padding: 20px 0 0 20px; list-style: disc inside;}
+	#stats input,                      
+	.d_all span							{padding: 7px 20px; font-size: 16px; line-height: 16px; background-color: #f12b2b; color: #fff; cursor: pointer; }
+
+    #stats .stats				    {margin-top: 30px; }
+	#stats .stats h1				{margin-top: 5px; font-size: 35px; }	
+	#stats .stats small				{margin-top: 5px; font-size: 16px; letter-spacing: 0;}		
+    
+    #stats .block                   {width: 300px; height: 100px; padding: 0; position: relative; display: inline-block; overflow: hidden; margin: 2px;}
+
+#main                          		{width: 960px; height: auto; margin: 0 auto; padding-top: 20px; position: relative;}
+    /*{position: relative; margin: -20px 0 88px; width: 750px; padding: 20px 80px 70px; background-color: #fff; }	*/
+#main 								{font-size: 21px; line-height: 30px; font-style: italic; color: #676767; }

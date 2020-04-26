@@ -1,0 +1,32 @@
+Django==1.8.1
+django-classy-settings==1.1.0
+psycopg2==2.6
+
+# ADMIN
+django-suit==0.2.13
+
+# CMS
+django-pager==0.1.7
+
+# DEVELOPMENT
+django-debug-toolbar==1.3.0
+
+# TESTING
+factory-boy==2.5.2
+django-webtest==1.7.8
+mock==1.0.1
+ddt==1.0.0
+
+# FRONTEND
+django-widget-tweaks==1.3
+django-picklefield==0.3.1
+django-nocaptcha-recaptcha==0.0.18
+django_compressor==1.5
+libsass==0.8.3
+
+# API
+djangorestframework
+markdown
+django-filter==0.10.0
+django-filters==0.2.1
+git+https://github.com/macropin/django-registration.git@v1.2c0

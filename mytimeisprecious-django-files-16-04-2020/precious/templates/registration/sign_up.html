@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles widget_tweaks %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="section-title">Sign up</h1>
+    </div>
+
+    <div id="main">
+        {# SIGN UP FORM #}
+        <form action="{% url 'registration_register' %}" method="post" id="sign-up-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+        <label class="sr-only" for="email">Email</label>
+        {{ form.email|add_class:"form-control"|add_error_class:"error"|attr:"placeholder:your e-mail"|attr:"required:true" }}
+        {{ form.email.errors }}
+        </div>
+        <div class="form-group">
+        <label class="sr-only" for="username">Name</label>
+        {{ form.username|add_class:"form-control"|add_error_class:"error"|attr:"placeholder:your username"|attr:"required:true" }}
+        {{ form.username.errors }}
+        </div>
+        <div class="form-group">
+        <label class="sr-only" for="password">Password</label>
+        {{ form.password|add_class:"form-control"|add_error_class:"error"|attr:"placeholder:your password"|attr:"required:true"|attr:"type:password" }}
+        {{ form.password.errors }}
+        </div>
+
+        {{ form.captcha }}
+        {{ form.captcha.errors }}
+
+        <div class="form-group">
+        <label class="sr-only" for="tos">I agree to the terms of service</label>
+        {{ form.tos|add_class:"form-control"|add_error_class:"error"|attr:"required:true" }}
+        {{ form.tos.errors }}
+        </div>
+        <br />
+        <input type="submit" class="btn" value="Sign up">
+        <br />
+        </form>
+    </div>
+
+{% endblock %}

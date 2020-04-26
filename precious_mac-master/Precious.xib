@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's owner" customClass="PreciousController">
+            <connections>
+                <outlet property="dayButton" destination="3Sy-Eu-Hbp" id="hYX-p9-q6B"/>
+                <outlet property="dayField" destination="IGW-b6-n8j" id="IzH-em-CVt"/>
+                <outlet property="dayLabel" destination="8bR-Of-mCY" id="waK-xT-11e"/>
+                <outlet property="dayProgress" destination="R09-eg-Wtn" id="3QR-TD-1V4"/>
+                <outlet property="helpText" destination="Q6F-ef-d7V" id="s8a-Hn-nPo"/>
+                <outlet property="hourButton" destination="CJG-e5-uFB" id="lsp-4t-9DP"/>
+                <outlet property="hourField" destination="ecq-Ah-frb" id="aqY-Qx-NzU"/>
+                <outlet property="hourLabel" destination="pgY-ph-lqM" id="4TC-0h-CRO"/>
+                <outlet property="hourProgress" destination="PgY-6L-fxQ" id="cDl-v5-5bG"/>
+                <outlet property="hourSegment" destination="aQE-Hp-pSn" id="KMz-Ab-cGN"/>
+                <outlet property="newPasswordField" destination="RC5-M0-h3u" id="Amo-rj-DHX"/>
+                <outlet property="newUsernameField" destination="5L1-ov-z3Y" id="jGQ-z0-xHV"/>
+                <outlet property="passwordField" destination="3QW-5o-Nt8" id="p1q-D5-3s6"/>
+                <outlet property="settMenuActivate" destination="a4Y-MG-TBG" id="rU9-6D-Nc8"/>
+                <outlet property="signUpButton" destination="lus-Ub-Qmf" id="kge-HN-o6J"/>
+                <outlet property="signUpEmailError" destination="dan-lq-WXx" id="NcN-7x-dfd"/>
+                <outlet property="signUpEmailField" destination="5L1-ov-z3Y" id="Qpn-Gh-oO0"/>
+                <outlet property="signUpError" destination="wrJ-wp-Tjz" id="NfM-zW-g8l"/>
+                <outlet property="signUpPasswordField" destination="Dzg-GR-jmm" id="vU5-lW-us3"/>
+                <outlet property="signUpProgress" destination="NT0-ag-Bha" id="e4Q-TI-cnX"/>
+                <outlet property="signUpUsernameError" destination="Sxg-iK-wJy" id="ZF4-ar-D1d"/>
+                <outlet property="signUpUsernameField" destination="RC5-M0-h3u" id="K53-Bp-OUg"/>
+                <outlet property="signUpWindow" destination="q6k-J6-Qgh" id="BDq-O8-JHe"/>
+                <outlet property="statsButton" destination="7JJ-8V-p5x" id="8fL-IH-Z8B"/>
+                <outlet property="syncButton" destination="H9p-wH-UZa" id="RNe-2c-HOo"/>
+                <outlet property="syncError" destination="vrK-y5-qtR" id="b4y-P6-337"/>
+                <outlet property="syncProgress" destination="CSB-14-97f" id="ULS-9J-dK9"/>
+                <outlet property="syncWindow" destination="6b0-Xv-CQW" id="FFK-6K-3ao"/>
+                <outlet property="usernameField" destination="Smb-4K-aGG" id="ubo-Zl-uZb"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+            <items>
+                <menuItem title="Precious" id="1Xt-HY-uBw">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Precious" systemMenu="apple" id="uQy-DD-JDr">
+                        <items>
+                            <menuItem title="About Precious" id="5kV-Vb-QxS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="uDu-g7-0YI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                            <menuItem title="Preferences:" enabled="NO" id="v7K-b4-Ogg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Activate app every hour" state="on" indentationLevel="1" id="a4Y-MG-TBG">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="settActivate:" target="-2" id="Tq9-zQ-jGS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                            <menuItem title="Hide Precious" keyEquivalent="h" id="Olw-nP-bQN">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="VT4-aY-XCT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show All" id="Kd2-mp-pUS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="Dhg-Le-xox"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                            <menuItem title="Quit Precious" keyEquivalent="q" id="4sb-4s-VLi">
+                                <connections>
+                                    <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Account" id="dMs-cI-mzQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Account" id="bib-Uj-vzu">
+                        <items>
+                            <menuItem title="Log hour..." keyEquivalent="l" id="IAo-SY-fd9">
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="Pfd-EG-RZC" id="5qh-rx-Uii"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sign in and sync..." keyEquivalent="s" id="24J-2A-Z6x">
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="6b0-Xv-CQW" id="itA-co-Hx0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sync all data (slow)..." id="wt1-Rt-Umy">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="syncAll:" target="-2" id="1lt-Ag-Ncw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="nyX-mi-2Eb"/>
+                            <menuItem title="Create a new account..." id="Was-JA-tGl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="q6k-J6-Qgh" id="QKZ-qV-58L"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Edit" id="lda-7D-zI2">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Edit" id="ZcS-42-ypq">
+                        <items>
+                            <menuItem title="Undo" keyEquivalent="z" id="L8g-dr-QXH">
+                                <connections>
+                                    <action selector="undo:" target="-1" id="Tck-yi-hjE"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Redo" keyEquivalent="Z" id="zXS-p9-ndC">
+                                <connections>
+                                    <action selector="redo:" target="-1" id="RJj-pU-cjE"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="zJo-KX-En5"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="aLd-ge-eSU">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="aLM-R0-VvI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="A6a-Ot-y1k">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="2uS-A5-tSu"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="1fU-Pg-E4r">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="mMj-Ua-l3o"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" id="84u-yM-HFB">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="delete:" target="-1" id="5ZU-fm-zs9"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="s2G-JQ-f54">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="Vs6-Iw-9hD"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ER7-9v-AGy"/>
+                            <menuItem title="Spelling and Grammar" id="oYX-Lm-UFO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Spelling" id="HId-Hi-eEu">
+                                    <items>
+                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="7Iv-zy-H8x">
+                                            <connections>
+                                                <action selector="showGuessPanel:" target="-1" id="Mwc-Xd-dY7"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Document Now" keyEquivalent=";" id="3ab-Nv-jdJ">
+                                            <connections>
+                                                <action selector="checkSpelling:" target="-1" id="JG8-h1-jJ2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="tBS-nb-Vpv"/>
+                                        <menuItem title="Check Spelling While Typing" id="CeG-Us-P9l">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="bx2-yh-RYH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Grammar With Spelling" id="nwC-lA-ts5">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleGrammarChecking:" target="-1" id="gSb-QJ-N5h"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Correct Spelling Automatically" id="cYy-2r-oji">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticSpellingCorrection:" target="-1" id="eEE-Sw-8cK"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Substitutions" id="WEk-pl-P2K">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Substitutions" id="wjs-kO-qyI">
+                                    <items>
+                                        <menuItem title="Show Substitutions" id="u5w-vl-n1B">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontSubstitutionsPanel:" target="-1" id="JOQ-Ii-cRF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="gKK-Yd-iLO"/>
+                                        <menuItem title="Smart Copy/Paste" id="4HF-cU-RaM">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleSmartInsertDelete:" target="-1" id="nzD-1E-qQX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Quotes" id="yRk-vj-Iox">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="UmQ-jZ-s5G"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Dashes" id="ISE-FF-MPA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="WHv-1q-iE2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Links" id="j1J-EZ-Eg8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticLinkDetection:" target="-1" id="ENp-5e-kU0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Data Detectors" id="fb5-LU-RMj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticDataDetection:" target="-1" id="BPz-iw-IOh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Text Replacement" id="bV4-H5-p0h">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="TzX-eH-J6G"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Transformations" id="eUe-WL-NyX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Transformations" id="zOs-H9-8PJ">
+                                    <items>
+                                        <menuItem title="Make Upper Case" id="N8z-mM-kVM">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="uppercaseWord:" target="-1" id="XK6-Sq-J39"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Make Lower Case" id="dpp-gd-797">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="lowercaseWord:" target="-1" id="GfC-3t-jS6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Capitalize" id="IuU-sH-x9R">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="capitalizeWord:" target="-1" id="mqU-LV-V9i"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Speech" id="T1X-HI-bNO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Speech" id="xjb-d9-s7k">
+                                    <items>
+                                        <menuItem title="Start Speaking" id="ovy-av-db9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="startSpeaking:" target="-1" id="VSP-tf-BAH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Stop Speaking" id="VXN-Hh-eix">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="stopSpeaking:" target="-1" id="9pD-3N-1xo"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Help" id="wpr-3q-Mcd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
+                        <items>
+                            <menuItem title="How does this app work?" id="362-wC-Rzi">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="gAk-kW-6Qv" id="koQ-pF-mDp"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Contact the author" id="FKE-Sm-Kum">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="Jrc-4H-MSB" id="SDd-SZ-TtE"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+        </menu>
+        <window title="Time is precious" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="Pfd-EG-RZC">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="817" y="598" width="400" height="250"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="o2l-ka-yFY">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecq-Ah-frb">
+                        <rect key="frame" x="32" y="49" width="340" height="111"/>
+                        <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Activity during this hour #area #project" drawsBackground="YES" id="e6S-ub-RZd">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="submitHour:" target="-2" id="Pgo-fu-IFf"/>
+                        </connections>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16y-aj-feq">
+                        <rect key="frame" x="26" y="13" width="203" height="32"/>
+                        <buttonCell key="cell" type="push" title="Log hour" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wYO-3u-s2e">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="submitHour:" target="-2" id="FFD-A2-637"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Sy-Eu-Hbp">
+                        <rect key="frame" x="266" y="13" width="112" height="32"/>
+                        <buttonCell key="cell" type="push" title="Wed 1 Apr" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aDL-9M-m5d">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="deminiaturize:" target="2JC-pM-ke4" id="cPX-8w-Ege"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIN-JX-Q2j">
+                        <rect key="frame" x="26" y="202" width="49" height="32"/>
+                        <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mLf-By-XJv">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent"></string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="prevHour:" target="-2" id="abO-JW-Hcg"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgY-ph-lqM">
+                        <rect key="frame" x="75" y="207" width="254" height="23"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Hour" id="mas-jV-SwE">
+                            <font key="font" metaFont="system" size="19"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KAz-Xd-SH6">
+                        <rect key="frame" x="329" y="202" width="49" height="32"/>
+                        <buttonCell key="cell" type="push" title="&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wXM-a4-R7e">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent"></string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="nextHour:" target="-2" id="kDV-wj-TTp"/>
+                        </connections>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="PgY-6L-fxQ">
+                        <rect key="frame" x="231" y="22" width="16" height="16"/>
+                    </progressIndicator>
+                    <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQE-Hp-pSn">
+                        <rect key="frame" x="116" y="166" width="172" height="24"/>
+                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="gj0-Gn-jDx">
+                            <font key="font" metaFont="system"/>
+                            <segments>
+                                <segment label="Bad"/>
+                                <segment label="Neutral" selected="YES" tag="1"/>
+                                <segment label="Good"/>
+                            </segments>
+                        </segmentedCell>
+                        <connections>
+                            <action selector="productive:" target="-2" id="ONS-pn-URa"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="478" y="144"/>
+        </window>
+        <window title="Every day is a gift" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="2JC-pM-ke4">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="803" y="233" width="400" height="250"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="YEx-Jj-zah">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hoz-Mb-cPl">
+                        <rect key="frame" x="26" y="13" width="203" height="32"/>
+                        <buttonCell key="cell" type="push" title="Log day" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="a1t-1Z-RuT">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="submitDay:" target="-2" id="0PZ-pJ-H6V"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdw-bl-fEb">
+                        <rect key="frame" x="329" y="201" width="49" height="32"/>
+                        <buttonCell key="cell" type="push" title="&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h2k-6h-5Lf">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent"></string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="nextDay:" target="-2" id="aTf-Wm-dGi"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8bR-Of-mCY">
+                        <rect key="frame" x="97" y="209" width="210" height="23"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Day" id="sZj-72-c3m">
+                            <font key="font" metaFont="system" size="19"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IGW-b6-n8j">
+                        <rect key="frame" x="32" y="49" width="340" height="151"/>
+                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Reflection of the day" drawsBackground="YES" id="J83-yc-6Ub">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJG-e5-uFB">
+                        <rect key="frame" x="266" y="13" width="112" height="32"/>
+                        <buttonCell key="cell" type="push" title="Hours" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gBN-Om-8ny">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="deminiaturize:" target="Pfd-EG-RZC" id="6BX-TR-s4e"/>
+                        </connections>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="R09-eg-Wtn">
+                        <rect key="frame" x="231" y="22" width="16" height="16"/>
+                    </progressIndicator>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z62-lN-KN8">
+                        <rect key="frame" x="26" y="201" width="49" height="32"/>
+                        <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yPo-aR-QsN">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent"></string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="prevDay:" target="-2" id="xfV-y9-zwh"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="281" y="223"/>
+        </window>
+        <window title="Sync" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="6b0-Xv-CQW" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1000" y="900" width="248" height="209"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="gLW-iY-YvK">
+                <rect key="frame" x="-5" y="0.0" width="248" height="209"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Smb-4K-aGG">
+                        <rect key="frame" x="49" y="154" width="150" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="your e-mail" bezelStyle="round" id="HL7-eZ-Cg5">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9p-wH-UZa">
+                        <rect key="frame" x="49" y="61" width="150" height="25"/>
+                        <buttonCell key="cell" type="roundTextured" title="Sign in and sync" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="o4i-1e-cFW">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="authenticate:" target="-2" id="ufw-na-sro"/>
+                        </connections>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="CSB-14-97f">
+                        <rect key="frame" x="25" y="66" width="16" height="16"/>
+                    </progressIndicator>
+                    <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QW-5o-Nt8">
+                        <rect key="frame" x="49" y="107" width="150" height="22"/>
+                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="your password" usesSingleLineMode="YES" bezelStyle="round" id="Gme-41-ox0">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </secureTextFieldCell>
+                    </secureTextField>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrK-y5-qtR">
+                        <rect key="frame" x="18" y="8" width="212" height="50"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Error." id="fPI-DE-oAv">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7JJ-8V-p5x">
+                        <rect key="frame" x="59" y="13" width="131" height="19"/>
+                        <buttonCell key="cell" type="roundRect" title="Check your stats!" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TUa-Bh-r6H">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openStats:" target="-2" id="GRZ-IT-3ak"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oay-za-sQK">
+                        <rect key="frame" x="47" y="177" width="55" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="E-mail:" id="vNh-KC-ktt">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Z9-Fe-eOy">
+                        <rect key="frame" x="47" y="131" width="68" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="xVm-fP-t60">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button toolTip="Recover your password" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-KE-DbN">
+                        <rect key="frame" x="177" y="106" width="25" height="25"/>
+                        <buttonCell key="cell" type="help" bezelStyle="helpButton" imagePosition="overlaps" alignment="center" controlSize="mini" state="on" borderStyle="border" inset="2" id="Ryd-XK-RRr">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="miniSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openPasswordReset:" target="-2" id="QcQ-CI-GZS"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="329" y="164.5"/>
+        </window>
+        <window title="Create account" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="q6k-J6-Qgh" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="600" y="900" width="310" height="209"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="Gut-vw-PtP">
+                <rect key="frame" x="0.0" y="0.0" width="310" height="209"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5L1-ov-z3Y">
+                        <rect key="frame" x="63" y="167" width="184" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="E-mail" bezelStyle="round" id="MaQ-aA-cyF">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lus-Ub-Qmf">
+                        <rect key="frame" x="63" y="36" width="184" height="25"/>
+                        <buttonCell key="cell" type="roundTextured" title="Create" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qxC-Zy-MJ8">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="signUp:" target="-2" id="F9B-kG-9YC"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RC5-M0-h3u">
+                        <rect key="frame" x="63" y="123" width="184" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Username" bezelStyle="round" id="nFb-57-ySl">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzg-GR-jmm">
+                        <rect key="frame" x="63" y="78" width="184" height="22"/>
+                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" usesSingleLineMode="YES" bezelStyle="round" id="HPj-a3-G43">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </secureTextFieldCell>
+                    </secureTextField>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dan-lq-WXx">
+                        <rect key="frame" x="61" y="153" width="188" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Error." id="eyc-ss-RnN">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sxg-iK-wJy">
+                        <rect key="frame" x="61" y="108" width="188" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Error." id="IcM-fl-Xv1">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="NT0-ag-Bha">
+                        <rect key="frame" x="39" y="41" width="16" height="16"/>
+                    </progressIndicator>
+                    <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wrJ-wp-Tjz">
+                        <rect key="frame" x="61" y="3" width="188" height="34"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Error" id="iD3-27-g4G">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="482" y="194.5"/>
+        </window>
+        <window title="Help" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="gAk-kW-6Qv">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
+            <rect key="contentRect" x="650" y="303" width="646" height="584"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="9eJ-B2-EyO">
+                <rect key="frame" x="0.0" y="-1" width="646" height="584"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q6F-ef-d7V">
+                        <rect key="frame" x="50" y="33" width="546" height="498"/>
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Help text" id="kJt-sW-6gG">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="461" y="177"/>
+        </window>
+        <window title="About" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Jrc-4H-MSB">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
+            <rect key="contentRect" x="650" y="303" width="356" height="213"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="8eU-yP-yZg">
+                <rect key="frame" x="0.0" y="0.0" width="356" height="213"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsa-Am-tFT">
+                        <rect key="frame" x="81" y="38" width="194" height="23"/>
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Created by Anton Vinokurov" id="fnV-Ld-HJL">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-gE-g1y">
+                        <rect key="frame" x="41" y="77" width="274" height="68"/>
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="&quot;I'm sorry but I work and my time is precious.&quot; - A french dude I've met on a bicycle tour in Marseille" id="8lu-Z6-Lhu">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GCx-1Z-tak">
+                        <rect key="frame" x="85" y="152" width="187" height="19"/>
+                        <buttonCell key="cell" type="roundRect" title="Visit the web app" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j7H-6a-0DL">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openWebApp:" target="-2" id="A53-fX-OZ7"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyl-7d-M3j">
+                        <rect key="frame" x="113" y="19" width="131" height="19"/>
+                        <buttonCell key="cell" type="roundRect" title="Visit my website" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DOc-MY-TSb">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openPortfolio:" target="-2" id="YCE-fC-JZL"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="381" y="223.5"/>
+        </window>
+    </objects>
+</document>

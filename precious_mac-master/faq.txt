@@ -1,0 +1,23 @@
+Hello, dear productive user!
+
+You can simply log your hours and days and worry about nothing, but you may want to see your stats.
+
+If so then first you need an account, use main menu "Account" -> "Create a new account...".
+
+Done? Now you can sync your data with the server to back it up and see your stats!
+
+To sync the data use "Account" -> "Sign in and sync..." which is a quick sync of the last 3 days.
+
+In a rare case that you want to sync all the data, including old data earlier than 3 days use 'Account' -> 'Sync all data (slow)...'. Beware, it is SLOW if you have many hours/days logged.
+
+There are shortcuts:
+- CMD+L to log an hour;
+- CMD+S to open "sign in and sync" window;
+- Enter in hour window - logs current hour;
+- CMD+Enter in day window - logs current day reflection;
+- CMD+Arrow in hour/day window lets you to browse hours/days.
+
+Now I hope you have everything you needed to know.
+
+Enjoy,
+Anton.

@@ -1,0 +1,77 @@
+@function hex-to-rgba($color, $opacity) {
+    @return rgba(red($color), green($color), blue($color), $opacity);
+}
+
+@mixin overlay() {
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+@mixin no-top-margin {
+    & > *:first-child {
+        margin-top:0;
+    }
+}
+@mixin no-bottom-margin {
+    & > *:last-child {
+        margin-bottom:0;
+    }
+}
+@mixin ul-reset {
+  list-style-type:none;
+}
+@mixin custom-ul-icon {
+  list-style:none;
+  margin:20px 0;
+  li {
+    padding-left:25px;
+    margin-bottom:10px;
+  }
+}
+@mixin a-reset {
+  border-bottom:none;
+}
+@mixin button-reset {
+  border:none;
+  background:none;
+}
+@mixin white-transparent-button {
+    color:$white;
+    padding:5px 10px;
+    border:1px solid hex-to-rgba($white ,0.7);
+    border-radius:4px;
+    font-size:16px;
+    margin-left:10px;
+    padding:7px 12px;
+    &:hover, &:focus, &:active {
+      background-color:$white;
+      color:$text-dark-black;
+    }
+}
+
+// FROM BOOTSTRAP
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}

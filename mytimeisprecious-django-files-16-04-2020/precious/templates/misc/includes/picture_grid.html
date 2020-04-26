@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<div class="container pictures">
+  <h2>Look at all these neat screenshots:</h2>
+  {% spaceless %}
+  <div class="pictures__row">
+
+    <div class="pictures__feature">
+      <div class="pictures__top">
+        <img class="pictures__image" src="{% static 'img/precious_mac_log.png' %}" alt="Log your hours and days" />
+        <h3 class="pictures__title">That's how you can log your hours and days.</h3>
+      </div>
+    </div>
+
+    <div class="pictures__feature">
+      <div class="pictures__top">
+        <img class="pictures__image" src="{% static 'img/precious_mac_sync.png' %}" alt="Sync your data" />
+        <h3 class="pictures__title">Then sync your data.</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pictures__row">
+    <div class="pictures__feature-single">
+      <div class="pictures__top">
+        <img class="pictures__image-single" src="{% static 'img/precious_web.png' %}" alt="Projects you worked on" />
+        <h3 class="pictures__title">On the web you can see your stats this week or for the projects you worked on.</h3>
+      </div>
+    </div>
+  </div>
+  {% endspaceless %}
+</div>
