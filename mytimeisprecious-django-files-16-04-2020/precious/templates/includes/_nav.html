@@ -1,8 +1,0 @@
-{% load main_tags %}
-
-        <ul class="header__main-nav">
-          {% get_active_page request as active_page %}
-          <li><a {% if active_page == 'week' %}class="active"{% endif %} href="{% url 'week-current' %}" id="gn-week">Week</a></li>
-          <li><a {% if active_page == 'month' %}class="active"{% endif %} href="{% url 'month-current' %}" id="gn-month">Month</a></li>
-          <li><a {% if active_page == 'tags' %}class="active"{% endif %} href="{% url 'tags-summary' %}" id="gn-tags">Tags</a></li>
-        </ul>
