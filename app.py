@@ -82,7 +82,7 @@ class PreciousApp:
     data = self.data.fetch("hours", filters, True)
     if data is None:
       self.hour_data = {
-        "text": "",
+        "text": "Log this hour",
         "rating": 0,
         "timestamp": int(self.curr_timestamp),
         "year": self.year,
@@ -119,9 +119,25 @@ class PreciousApp:
     self.data.insert_many("tags",db_tags)
 
 
-  def save_hour(self, text, rating):
+  def save_hour(self, text, rating, tags):
+    tag_str = ""
+    for tag in tags:
+      if len(tag_str) > 1:
+        tag_str += " "
+      tag_str += "{0}".format(tag)
+
+    text += "\n{0}".format(tag_str)
+
+    self.hour_data['text'] = text
+    self.hour_data['rating'] = rating
+    self.hour_data['timestamp'] = int(self.curr_timestamp)
+    self.hour_data['year'] = self.year
+    self.hour_data['month'] = self.month
+    self.hour_data['day'] = self.day
+    self.hour_data['hour'] = self.hour
+
     db_hour = [text, rating, int(self.curr_timestamp), self.year, self.month, self.day, self.hour]
-    print(self.data.insert("hours", db_hour))
+    self.data.insert("hours", db_hour)
 
 
   # def updateDisplayDay(self):

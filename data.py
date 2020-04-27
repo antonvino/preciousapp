@@ -18,8 +18,7 @@ class PreciousData():
     # if it fails -- create all tables for the app
     try:
       c.execute("SELECT * FROM hours")
-      data = c.fetchall()
-      print(data)
+      c.fetchall()
     except Exception as e:
       print(e)
       init_db(self.db_path)

@@ -59,8 +59,15 @@ Changes the main textarea to the day's log text
 Save hour -> Save day
 Extra button of different look says "Edit hours"
 
-
 View plot either opens new window or extends the window bottom and shows Canvas item with plots (to be decided)
+
+
+
+Some issues with tags:
+When you open the hour -- need to see already selected tags (take them out of text?)
+Do we add tags to text? If we save twice they get added twice
+Perhaps an easier way would be to just keep tags as a list, not in the text, 
+but then would need to save tags in a separate field...
 
 """
 
@@ -72,6 +79,15 @@ class PreciousWindow():
   def __init__(self):
     self.app = PreciousApp()
     self.app.load_hour()
+
+    # sg.theme('LightGrey1')
+    # sg.theme('NeutralBlue')
+    sg.theme('DarkBlue14')
+    sg.theme_text_color('#c0c0c0')
+    cols = sg.theme_button_color()
+    sg.theme_button_color(tuple(['#c0c0c0', cols[1]]))
+    sg.theme_element_text_color('#c0c0c0')
+    sg.theme_input_text_color('#c0c0c0')
 
     if(self.app.hour_data['rating'] == -1):
       bad_button_init_color = ("#444444", "#bbbbbb")
@@ -86,15 +102,6 @@ class PreciousWindow():
       neutral_button_init_color = sg.theme_button_color()
       good_button_init_color = ("#444444", "#bbbbbb")
 
-    # sg.theme('LightGrey1')
-    # sg.theme('NeutralBlue')
-    sg.theme('DarkBlue14')
-
-    sg.theme_text_color('#c0c0c0')
-    cols = sg.theme_button_color()
-    sg.theme_button_color(tuple(['#c0c0c0', cols[1]]))
-    sg.theme_element_text_color('#c0c0c0')
-    sg.theme_input_text_color('#c0c0c0')
 
     temp_hours = (' 1 PM', ' 2 PM', ' 3 PM', ' 4 PM', ' 5 PM', ' 6 PM', ' 7 PM', ' 8 PM', ' 9 PM', ' 10 PM', ' 11 PM')
 
@@ -102,7 +109,7 @@ class PreciousWindow():
     column1 = [
       [sg.Listbox(
         values=temp_hours, 
-        size=(10, 10), 
+        size=(10, 12), 
         enable_events=True, 
         key="select_hour", 
         background_color=sg.theme_background_color(), 
@@ -129,9 +136,9 @@ class PreciousWindow():
 
       # the rating row
       [
-        sg.Button('Bad',     key="bad",     font="Roboto 10 normal", size=(4,1), pad=((230, 0), (0, 0)), button_color=bad_button_init_color ),
-        sg.Button('Neutral', key="neutral", font="Roboto 10 normal", size=(4,1), pad=((0, 0), (0, 0)),   button_color=neutral_button_init_color ), 
-        sg.Button('Good',    key="good",    font="Roboto 10 normal", size=(4,1), pad=((0, 0), (0, 0)),   button_color=good_button_init_color )
+        sg.Button('Bad',     key="bad",     font="Roboto 10 normal", size=(4,1), pad=((230, 0), (10, 0)), button_color=bad_button_init_color ),
+        sg.Button('Neutral', key="neutral", font="Roboto 10 normal", size=(4,1), pad=((0, 0),   (10, 0)), button_color=neutral_button_init_color ), 
+        sg.Button('Good',    key="good",    font="Roboto 10 normal", size=(4,1), pad=((0, 0),   (10, 0)), button_color=good_button_init_color )
       ],
 
       # the textarea and tag row
@@ -140,18 +147,18 @@ class PreciousWindow():
           default_text=self.app.get_hour_text(), 
           size=(30, 6), 
           key="hour_text", 
-          pad=((5, 0), (10, 0)), 
+          pad=((5, 0), (15, 0)), 
           do_not_clear=True, focus=True, 
           background_color=sg.theme_background_color() 
         ),
         sg.Listbox(
-          values=self.app.get_tags("# "), 
+          values=self.app.get_tags("#"), 
           size=(15, 6), 
           enable_events=False, 
           key="select_tag", 
           select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
           background_color=sg.theme_background_color(), 
-          pad=((5, 0), (10, 0)), 
+          pad=((5, 0), (15, 0)), 
           no_scrollbar=False, 
           right_click_menu = ['!Tags', ['!Tags', '&Edit tags::edit_tags']]
         )
@@ -159,16 +166,16 @@ class PreciousWindow():
 
       # the action button row
       [
-        sg.Button('Save hour', key="save", font="Roboto 10 normal", size=(8,1), pad=((5, 0), (10, 0))), 
+        sg.Button('Save hour', key="save", font="Roboto 10 normal", size=(8,1), pad=((5, 0), (15, 0))), 
         sg.Text('', key="status", size=(24,1), pad=((10, 0), (10, 0))),
-        sg.Button('View plot', key="open", font="Roboto 10 normal", size=(8,1), pad=((10, 0), (10, 0))), 
+        sg.Button('View plot', key="open", font="Roboto 10 normal", size=(8,1), pad=((10, 0), (15, 0))), 
       ]
     ]
 
     # All the stuff inside the window
     layout = [ 
       [
-        sg.Column(column1),
+        # sg.Column(column1),
         sg.Column(column2)
       ]
     ]
@@ -177,7 +184,7 @@ class PreciousWindow():
     self.curr_rating = 0
 
     # Create the Window
-    self.window = sg.Window('Precious app', layout, font='Roboto 10 normal')
+    self.window = sg.Window('My time is precious', layout, font='Roboto 10 normal')
 
 
   def update_hour(self):
@@ -229,8 +236,11 @@ class PreciousWindow():
 
   
   def save(self, values):
+
+    # edit hour
     if not self.edit_tags:
-      self.app.save_hour(values['hour_text'], self.curr_rating)
+      self.app.save_hour(values['hour_text'], self.curr_rating, values['select_tag'])
+      self.update_hour()
 
     else: # edit tags
       tags = values['hour_text'].split(", #")
@@ -300,7 +310,7 @@ if __name__ == "__main__":
   while True:
     event, values = w.window.read()
     if event in (None, 'Cancel'):   # if user closes window or clicks cancel
-        break
+      break
 
     elif event == 'select_hour':
       print("Hour selected: {0}".format(values['select_hour']))
@@ -328,7 +338,6 @@ if __name__ == "__main__":
         w.cancel_edit_tags()
       else:
         print("TODO: open plot")
-
 
     elif event == "save":
       w.save(values)
