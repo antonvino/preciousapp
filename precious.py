@@ -2,6 +2,7 @@
 
 import PySimpleGUI as sg
 from app import PreciousApp
+from init_db import delete_tables
 
 """
 Overall flow:
@@ -63,182 +64,290 @@ View plot either opens new window or extends the window bottom and shows Canvas 
 
 """
 
-pa = PreciousApp()
+class PreciousWindow():
+  """
+  Class for generic application functions
+  """
 
-# sg.theme('LightGrey1')
-# sg.theme('NeutralBlue')
-sg.theme('DarkBlue14')
+  def __init__(self):
+    self.app = PreciousApp()
+    self.app.load_hour()
 
-sg.theme_text_color('#c0c0c0')
-cols = sg.theme_button_color()
-sg.theme_button_color(tuple(['#c0c0c0', cols[1]]))
-sg.theme_element_text_color('#c0c0c0')
-sg.theme_input_text_color('#c0c0c0')
+    if(self.app.hour_data['rating'] == -1):
+      bad_button_init_color = ("#444444", "#bbbbbb")
+      neutral_button_init_color = sg.theme_button_color()
+      good_button_init_color = sg.theme_button_color()
+    if(self.app.hour_data['rating'] == 0):
+      bad_button_init_color = sg.theme_button_color()
+      neutral_button_init_color = ("#444444", "#bbbbbb")
+      good_button_init_color = sg.theme_button_color()
+    if(self.app.hour_data['rating'] == 1):
+      bad_button_init_color = sg.theme_button_color()
+      neutral_button_init_color = sg.theme_button_color()
+      good_button_init_color = ("#444444", "#bbbbbb")
 
-print(sg.theme_slider_border_width())
+    # sg.theme('LightGrey1')
+    # sg.theme('NeutralBlue')
+    sg.theme('DarkBlue14')
 
-column1 = [
-            [sg.Listbox(values=(' 1 PM', ' 2 PM', ' 3 PM', ' 4 PM', ' 5 PM', ' 6 PM', ' 7 PM', ' 8 PM', ' 9 PM', ' 10 PM', ' 11 PM'), size=(10, 10), enable_events=True, key="select_hour", background_color=sg.theme_background_color(), no_scrollbar=True)],#, sg.VerticalSeparator()],
-]
+    sg.theme_text_color('#c0c0c0')
+    cols = sg.theme_button_color()
+    sg.theme_button_color(tuple(['#c0c0c0', cols[1]]))
+    sg.theme_element_text_color('#c0c0c0')
+    sg.theme_input_text_color('#c0c0c0')
 
-column2 = [
-            [
-              # sg.Text('', size=(4,1)), 
-              sg.Button('←', key="prev_hour", font="Roboto 12 normal", size=(4,1)), 
-              sg.Button(pa.get_hour_label(), key="open_day", size=(18,1), pad=((65, 0), (0, 0)), button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, font='Roboto 12 underline'), 
-              sg.Button('→', key="next_hour", font="Roboto 12 normal", pad=((65, 0), (0, 0)), size=(4,1)),
-              # sg.Text('', size=(4,1)), 
-            ],
-            [
-              # sg.Slider( range=(1,3), default_value=2, size=(10,40), orientation='horizontal', resolution=1, font=('Roboto', 12), tick_interval=0, pad=((0,0), (0,0)), disable_number_display=True )
-              sg.Button('Bad', key="bad", font="Roboto 10 normal",         size=(4,1), pad=((225, 0), (0, 0)),  border_width=1), 
-              sg.Button('Neutral', key="neutral", font="Roboto 10 normal", size=(4,1), pad=((0, 0), (0, 0)),    border_width=0, button_color=("#444444", "#bbbbbb")), 
-              sg.Button('Good', key="good", font="Roboto 10 normal",       size=(4,1), pad=((0, 0), (0, 0)))
+    temp_hours = (' 1 PM', ' 2 PM', ' 3 PM', ' 4 PM', ' 5 PM', ' 6 PM', ' 7 PM', ' 8 PM', ' 9 PM', ' 10 PM', ' 11 PM')
 
-            ],
-            [
-              sg.Multiline( default_text='Log the hour', size=(30, 6), key="hour_text", pad=((5, 0), (10, 0)), 
-                            do_not_clear=True, focus=True, background_color=sg.theme_background_color() ),
-              sg.Listbox(values=pa.get_tags(), 
-                        size=(15, 6), enable_events=True, key="select_tag", select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
-                        background_color=sg.theme_background_color(), pad=((5, 0), (10, 0)), no_scrollbar=False, 
-                        right_click_menu = ['!Tags', ['!Tags', '&Edit tags::edit_tags']])
-            ],
-            [
-              sg.Button('Save hour', key="save", font="Roboto 10 normal", size=(8,1), pad=((5, 0), (10, 0))), 
-              sg.Text('', key="status", size=(24,1), pad=((10, 0), (10, 0))),
-              sg.Button('View plot', key="open", font="Roboto 10 normal", size=(8,1), pad=((10, 0), (10, 0))), 
-            ]
-            #, sg.Button('Sun 26 Apr', key="open_day", button_color=('#000000', sg.theme_background_color()), border_width=0, font='Roboto 10 underline')]
-]
+    # hour list column
+    column1 = [
+      [sg.Listbox(
+        values=temp_hours, 
+        size=(10, 10), 
+        enable_events=True, 
+        key="select_hour", 
+        background_color=sg.theme_background_color(), 
+        no_scrollbar=True)], #, sg.VerticalSeparator()],
+    ]
 
-# column3 = [
-#             [sg.Listbox(values=(' my tag', ' my tag 2', ' appdev', ' work', ' hobby', ' climbing'), 
-#                         size=(10, 12), enable_events=True, key="select_tag", select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
-#                         background_color=sg.theme_background_color(), pad=((5, 5), (5, 5)), no_scrollbar=True
-#             )],
-# ]
+    # main column
+    column2 = [
+      # the hour switch row
+      [
+        sg.Button('←', key="prev_hour", font="Roboto 12 normal", size=(4,1)), 
+        sg.Button(
+          self.app.get_hour_label(), 
+          key="open_day", 
+          size=(18,1), 
+          pad=((65, 0), (0, 0)), 
+          button_color=(sg.theme_text_color(), 
+          sg.theme_background_color()), 
+          border_width=0, 
+          font='Roboto 12 underline'
+        ), 
+        sg.Button('→', key="next_hour", font="Roboto 12 normal", pad=((65, 0), (0, 0)), size=(4,1)),
+      ],
 
-# All the stuff inside your window.g
-layout = [ 
-  [
-    sg.Column(column1),
-    sg.Column(column2),
-    # sg.Column(column3)
-  ]
-  # [sg.Text('_' * 80)],
-]
+      # the rating row
+      [
+        sg.Button('Bad',     key="bad",     font="Roboto 10 normal", size=(4,1), pad=((230, 0), (0, 0)), button_color=bad_button_init_color ),
+        sg.Button('Neutral', key="neutral", font="Roboto 10 normal", size=(4,1), pad=((0, 0), (0, 0)),   button_color=neutral_button_init_color ), 
+        sg.Button('Good',    key="good",    font="Roboto 10 normal", size=(4,1), pad=((0, 0), (0, 0)),   button_color=good_button_init_color )
+      ],
 
-edit_tags = False
+      # the textarea and tag row
+      [
+        sg.Multiline(
+          default_text=self.app.get_hour_text(), 
+          size=(30, 6), 
+          key="hour_text", 
+          pad=((5, 0), (10, 0)), 
+          do_not_clear=True, focus=True, 
+          background_color=sg.theme_background_color() 
+        ),
+        sg.Listbox(
+          values=self.app.get_tags("# "), 
+          size=(15, 6), 
+          enable_events=False, 
+          key="select_tag", 
+          select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
+          background_color=sg.theme_background_color(), 
+          pad=((5, 0), (10, 0)), 
+          no_scrollbar=False, 
+          right_click_menu = ['!Tags', ['!Tags', '&Edit tags::edit_tags']]
+        )
+      ],
 
-# Create the Window
-window = sg.Window('Precious app', layout, font='Roboto 10 normal')
+      # the action button row
+      [
+        sg.Button('Save hour', key="save", font="Roboto 10 normal", size=(8,1), pad=((5, 0), (10, 0))), 
+        sg.Text('', key="status", size=(24,1), pad=((10, 0), (10, 0))),
+        sg.Button('View plot', key="open", font="Roboto 10 normal", size=(8,1), pad=((10, 0), (10, 0))), 
+      ]
+    ]
 
-# Event Loop to process "events" and get the "values" of the inputs
-while True:
-  event, values = window.read()
-  if event in (None, 'Cancel'):   # if user closes window or clicks cancel
-      break
+    # All the stuff inside the window
+    layout = [ 
+      [
+        sg.Column(column1),
+        sg.Column(column2)
+      ]
+    ]
 
-  elif event == 'select_hour':
-    print("Hour selected: {0}".format(values['select_hour']))
+    self.edit_tags = False
+    self.curr_rating = 0
 
-  # open day window
-  elif event == 'open_day':
-    # event, values  = sg.Window('SHA-1 & 256 Hash', [[sg.Text('SHA-1 and SHA-256 Hashes for the file')],
-    #                         [sg.InputText(), sg.FileBrowse()],
-    #                         [sg.Submit(), sg.Cancel()]]).read(close=True)
-    # source_filename = values[0]    
-    pass
+    # Create the Window
+    self.window = sg.Window('Precious app', layout, font='Roboto 10 normal')
 
-  elif event == 'prev_hour':
-    hour_label = window["open_day"] # this is the hour/day label
-    pa.to_prev_hour()
-    hour_label.Update(text=pa.get_hour_label())
 
-  elif event == 'next_hour':
-    hour_label = window["open_day"] # this is the hour/day label
-    pa.to_next_hour()
-    hour_label.Update(text=pa.get_hour_label())
+  def update_hour(self):
+    hour_label = self.window["open_day"]
+    hour_label.Update(text=self.app.get_hour_label())
 
-  elif event == 'Edit tags::edit_tags':
-    tags_listbox = window["select_tag"]
+    hour_text = self.window["hour_text"]
+    hour_text.Update(value=self.app.get_hour_text())
+
+    self.update_rating(self.app.hour_data['rating'])
+
+
+  def to_prev_hour(self):
+    self.app.to_prev_hour()
+    self.app.load_hour()
+    self.app.load_time(self.app.hour_data['timestamp'])
+    self.update_hour()
+
+
+  def to_next_hour(self):
+    self.app.to_next_hour()
+    self.app.load_hour()
+    self.app.load_time(self.app.hour_data['timestamp'])
+    self.update_hour()
+
+
+  def update_rating(self, rating):
+    if(rating == -1):
+      bad_button_color = ("#444444", "#bbbbbb")
+      neutral_button_color = sg.theme_button_color()
+      good_button_color = sg.theme_button_color()
+    if(rating == 0):
+      bad_button_color = sg.theme_button_color()
+      neutral_button_color = ("#444444", "#bbbbbb")
+      good_button_color = sg.theme_button_color()
+    if(rating == 1):
+      bad_button_color = sg.theme_button_color()
+      neutral_button_color = sg.theme_button_color()
+      good_button_color = ("#444444", "#bbbbbb")
+
+    bad_button = self.window["bad"]
+    bad_button.Update(button_color=bad_button_color)
+    neutral_button = self.window["neutral"]
+    neutral_button.Update(button_color=neutral_button_color)
+    good_button = self.window["good"]
+    good_button.Update(button_color=good_button_color)
+
+    self.curr_rating = rating
+
+  
+  def save(self, values):
+    if not self.edit_tags:
+      self.app.save_hour(values['hour_text'], self.curr_rating)
+
+    else: # edit tags
+      tags = values['hour_text'].split(", #")
+      valid_tags = []
+      for tag in tags:
+        tag = tag.replace("#", "").replace("\n","")
+        if len(tag) > 0:
+          valid_tags.append(tag)
+      
+      self.app.save_tags(valid_tags)
+
+      open_button = self.window["status"]
+      open_button.Update(value="Tags saved.")
+
+      self.cancel_edit_tags()
+      self.update_hour()
+
+
+  def start_edit_tags(self):
+    tags_listbox = self.window["select_tag"]
     tags_listbox.Update(disabled=True)
 
-    hour_text = window["hour_text"]
+    hour_text = self.window["hour_text"]
 
     strval = ""
-    for tag in pa.get_tags():
+    for tag in self.app.get_tags():
       strval += "#{0}, ".format(tag)
 
     strval += "#" # prompt new tag
     hour_text.Update(value=strval)
 
-    save_button = window["save"]
+    save_button = self.window["save"]
     save_button.Update(text="Save tags")
 
-    open_button = window["open"]
+    open_button = self.window["open"]
     open_button.Update(text="Cancel")
 
-    edit_tags = True
+    self.edit_tags = True
 
-  elif event == 'open':
 
-    if edit_tags:
-      tags_listbox = window["select_tag"]
-      tags_listbox.Update(disabled=False)
-
-      hour_text = window["hour_text"]
-      hour_text.Update(value="Load hour data again")
-
-      save_button = window["save"]
-      save_button.Update(text="Save hour")
-
-      open_button = window["open"]
-      open_button.Update(text="View plot")
-
-      edit_tags = False
-
-    else:
-      print("TODO: open plot")
-
-  elif event == "save":
-
-    tags = values['hour_text'].split(", #")
-    valid_tags = []
-    for tag in tags:
-      tag = tag.replace("#", "").replace("\n","")
-      if len(tag) > 0:
-        valid_tags.append(tag) 
-    
-    print(valid_tags)
-    pa.save_tags(valid_tags)
-
-    tags_listbox = window["select_tag"]
+  def cancel_edit_tags(self):
+    tags_listbox = self.window["select_tag"]
     tags_listbox.Update(disabled=False)
 
-    hour_text = window["hour_text"]
+    hour_text = self.window["hour_text"]
     hour_text.Update(value="Load hour data again")
 
-    save_button = window["save"]
+    save_button = self.window["save"]
     save_button.Update(text="Save hour")
 
-    open_button = window["open"]
+    open_button = self.window["open"]
     open_button.Update(text="View plot")
 
-    tags_listbox = window["select_tag"]
-    tags_listbox.Update(values=pa.get_tags())
+    tags_listbox = self.window["select_tag"]
+    tags_listbox.Update(values=self.app.get_tags())
 
-    open_button = window["status"]
-    open_button.Update(value="Tags saved.")
+    self.edit_tags = False
 
-    edit_tags = False
 
-  else:
-    print(event)
-    print(values)
+if __name__ == "__main__":
 
-  # print('You entered ', values[0])
-  # print(values)
+  # delete_tables("data.db")
 
-window.close()
+  w = PreciousWindow()
+
+  # Event Loop to process "events" and get the "values" of the inputs
+  while True:
+    event, values = w.window.read()
+    if event in (None, 'Cancel'):   # if user closes window or clicks cancel
+        break
+
+    elif event == 'select_hour':
+      print("Hour selected: {0}".format(values['select_hour']))
+
+    # open day window
+    elif event == 'open_day':
+      # event, values  = sg.Window('SHA-1 & 256 Hash', [[sg.Text('SHA-1 and SHA-256 Hashes for the file')],
+      #                         [sg.InputText(), sg.FileBrowse()],
+      #                         [sg.Submit(), sg.Cancel()]]).read(close=True)
+      # source_filename = values[0]    
+      pass
+
+    elif event == 'prev_hour':
+      w.to_prev_hour()
+
+    elif event == 'next_hour':
+      w.to_next_hour()
+
+    elif event == 'Edit tags::edit_tags':
+      w.start_edit_tags()
+
+    elif event == 'open':
+
+      if w.edit_tags:
+        w.cancel_edit_tags()
+      else:
+        print("TODO: open plot")
+
+
+    elif event == "save":
+      w.save(values)
+
+    elif event == "bad":
+      w.update_rating(-1)
+
+    elif event == "neutral":
+      w.update_rating(0)
+
+    elif event == "good":
+      w.update_rating(1)
+
+    else:
+      print("Unknown event")
+      print(event)
+      print(values)
+
+    # print('You entered ', values[0])
+    # print(values)
+
+  w.window.close()

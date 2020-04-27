@@ -57,6 +57,12 @@ class PreciousApp:
     # else:
     #   self.hourSegment.setSelected_forSegment_(1, 1)
 
+  def get_hour_text(self):
+    if 'text' in self.hour_data:
+      return self.hour_data['text']
+    else:
+      return 'Log hour'
+
 
   def to_prev_hour(self):
     self.load_time(self.curr_timestamp - 3600)
@@ -66,16 +72,42 @@ class PreciousApp:
     self.load_time(self.curr_timestamp + 3600)
 
 
-  def get_hour_text(self):
-    self.data.fetch("hours", datetime) # timestamp...
+  def load_hour(self):
+    filters = {
+      "year": self.year,
+      "month": self.month,
+      "day": self.day,
+      "hour": self.hour
+    }
+    data = self.data.fetch("hours", filters, True)
+    if data is None:
+      self.hour_data = {
+        "text": "",
+        "rating": 0,
+        "timestamp": int(self.curr_timestamp),
+        "year": self.year,
+        "month": self.month,
+        "day": self.day,
+        "hour": self.hour
+      }
+    else:
+      self.hour_data = {
+        "text": data[0],
+        "rating": data[1],
+        "timestamp": data[2],
+        "year": data[3],
+        "month": data[4],
+        "day": data[5],
+        "hour": data[6]
+      }
 
 
-  def get_tags(self):
+  def get_tags(self, decorator = ""):
     tags = []
     data = self.data.fetch("tags")
-    print(data)
     for tag in data:
-      tags.append("# {0}".format(tag[0]))
+      tags.append("{0}{1}".format(decorator, tag[0]))
+    # return the tags list
     return tags
 
 
@@ -85,6 +117,12 @@ class PreciousApp:
     for tag in tags:
       db_tags.append({"name": tag})
     self.data.insert_many("tags",db_tags)
+
+
+  def save_hour(self, text, rating):
+    db_hour = [text, rating, int(self.curr_timestamp), self.year, self.month, self.day, self.hour]
+    print(self.data.insert("hours", db_hour))
+
 
   # def updateDisplayDay(self):
   #   """

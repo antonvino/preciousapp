@@ -12,10 +12,17 @@ def init_db(db_path):
   ############################
 
   # Create table
+  # no rowid
+  # must be unique year,month,day,hour,timestamp
   c.execute('''CREATE TABLE IF NOT EXISTS hours (
                   text text,
                   rating integer not null default 0,
-                  timestamp integer not null
+                  timestamp integer not null,
+                  year integer not null default 0,
+                  month integer not null default 0,
+                  day integer not null default 0,
+                  hour integer not null default 0,
+                  UNIQUE(year, month, day, hour) ON CONFLICT REPLACE
             )''')
   conn.commit()
 
@@ -31,7 +38,7 @@ def init_db(db_path):
   c.execute('''CREATE TABLE IF NOT EXISTS days (
                   text text,
                   rating integer not null default 0,
-                  timestamp integer not null
+                  timestamp integer unique not null
             )''')
   conn.commit()
 
@@ -72,5 +79,7 @@ def delete_tables(db_path):
   c.execute('''DROP TABLE IF EXISTS hours''')
   conn.commit()
   c.execute('''DROP TABLE IF EXISTS days''')
+  conn.commit()
+  c.execute('''DROP TABLE IF EXISTS tags''')
   conn.commit()
   conn.close()

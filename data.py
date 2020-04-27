@@ -17,8 +17,9 @@ class PreciousData():
     # attempt to select from default table
     # if it fails -- create all tables for the app
     try:
-      c.execute("SELECT * FROM tags")
-      c.fetchall()
+      c.execute("SELECT * FROM hours")
+      data = c.fetchall()
+      print(data)
     except Exception as e:
       print(e)
       init_db(self.db_path)
@@ -26,15 +27,28 @@ class PreciousData():
     conn.close()
 
 
-  def fetch(self, item, id = None):
+  def fetch(self, item, filters = None, one = False):
     # connect to db and initialize cursor
     conn = sqlite3.connect(self.db_path)
     c = conn.cursor()
 
     data = []
-    if id is not None:
-      c.execute("SELECT * FROM {0} WHERE rowid=?".format(item), (str(id),) )
-      data.append(c.fetchone())
+    if filters is not None:
+
+      val_str = ""
+      val_list = []
+      for (key,val) in filters.items():
+        if len(val_str) > 1:
+          val_str += " AND "
+        val_str += "{0}=?".format(key)
+        val_list.append(val)
+
+      c.execute("SELECT * FROM {0} WHERE {1}".format(item, val_str), tuple(val_list) )
+      
+      if one:
+        data = c.fetchone() # single item, not list
+      else:
+        data = c.fetchall()
 
     else:
       c.execute("SELECT * FROM {0}".format(item))
@@ -57,6 +71,7 @@ class PreciousData():
     # connect to db and initialize cursor
     conn = sqlite3.connect(self.db_path)
     c = conn.cursor()
+    data = []
 
     val_str = ""
     for (i,val) in enumerate(values):
@@ -81,9 +96,21 @@ class PreciousData():
     # connect to db and initialize cursor
     conn = sqlite3.connect(self.db_path)
     c = conn.cursor()
+    data = []
 
-    if item == "tags":
-      c.execute("INSERT INTO {0} VALUES (?)".format(item), (values['name'],))
+    val_str = ""
+    val_list = []
+    for (i,val) in enumerate(values):
+      if i > 0:
+        val_str += ", "
+      val_str += "?"
+      val_list.append(val)
+
+    if item == "hours":
+
+      print(val_str)
+      print(val_list)
+      c.execute("INSERT INTO {0} VALUES ({1})".format(item, val_str), tuple(val_list))
       data = {"id":c.lastrowid} # response
       conn.commit()
     
