@@ -9,65 +9,98 @@ Overall flow:
 
 If sqlite database does not exist -- create it (this happens only once 
 at the start of the app for the first time)
-SQLite is the best because it's super simple and local. I can simply store the encrypted data there and decrypt it
-once user puts in their password. (similar to how std notes do that)
+SQLite is the best because it's super simple and local. Can store the encrypted data there and decrypt it
+once user puts in their password (similar to how std notes do that)
 
+---
 
 Normal operation:
 
-Open persistent window
 
+Open one persistent window
 Window shows current hour and date inviting to log with a textarea
-Hashtag in the text adds a new tag for later use
+This window loads the hour if it has been logged already (if you already logged this hour -- you just see what you wrote)
 
-Window loads your tags for hours (from db) and shows them as clickable buttons
-If you click that button it adds it as hashtag into the text at current text pos
+--- 
+
+Window loads and shows all of your tags for hours (from db) and shows them as clickable buttons
+If you click that button it adds a tag to the hour log
+(currently they are added as #-tags but can consider just adding 
+connections in DB and displaying in the list or separate area to the text)
+
+TODO: Show the selected tags at the top of the list (sort)
+TODO: When hour is loaded -- load saved tags, highlight the selected tags (i.e. pre-select them)
+TODO: Decide how to save tags (separate text field? separate table that connects hours-tags? 
+      Approx 9000+ hours per year so lookup is not too bad even if we just store tags in the text and search for them
+      when searching for hours with certain tags
+TODO: sort tags with most used at the top
+
+
+---
 
 There is a selector of 3 buttons (good / neutral / bad) -- this is the core functionality to rate hours
 This data will be used to plot graphs later
 
-Log day window openable by a click of a button. Log day does the same thing as hour log just for a full day.
-It's simply a separate table in db
+---
 
-Can click left/right to travel through hours of the day.
+Log day window openable by a click on the day in the label (or other button?). 
+Log day does the same thing as hour log just for a full day, it's simply a separate table in db
+
+---
+
+OLD: Can click left/right arrow buttons in the window to travel through hours of the day.
 In this app we can have a "timetable" list on the left side as a column with all hours marked with certain colours 
 E.g. grey -- not filled in
+The list of hours should be the primary navigation between hours it's nicer!
+
+---
 
 Hotkeys are a must
 Ctrl + First: key of tag selects it
 Enter: logs the hour
 Ctrl + S: also logs the hour
-Ctrl + Left arrow: move to prev hour
-Ctrl + Right arrow: move to next hour
+Ctrl + Up arrow: move to prev hour
+Ctrl + Down arrow: move to next hour
 
+---
 
 Plot icon-button opens the plot of your data -- it's a separate persistent window with different buttons
 To be decided later
+"View plot" button either opens new window or extends the window bottom and shows Canvas item with plots (to be decided)
 
-
-Closing main window closes app...
-
-
+---
 
 Right click on tags -> edit tags
 Hides tags list, contents of textarea become tags which you can edit now
 Save hour -> save tags
-Extra button of different look says "Cancel"
+Extra button of different look says "Cancel" -- that closes tags editing without saving
+
+---
 
 Clicking on the Day label at the top
 Changes the main textarea to the day's log text
-Save hour -> Save day
-Extra button of different look says "Edit hours"
+Save hour -> Save day (this button saves the day log)
+Extra button of different look says "Back to edit hours" -- which goes back to hour editing and does not save day log
 
-View plot either opens new window or extends the window bottom and shows Canvas item with plots (to be decided)
+---
 
+Closing main window closes app...
 
+---
 
-Some issues with tags:
-When you open the hour -- need to see already selected tags (take them out of text?)
-Do we add tags to text? If we save twice they get added twice
-Perhaps an easier way would be to just keep tags as a list, not in the text, 
-but then would need to save tags in a separate field...
+Hour list
+"Center" list at the current hour shown i.e. the 6-th element in the list is that.
+Above are the earlier hours in the day all the way up to where the day changes to the previous day
+Below are the later hours in the day all the way up to where the day changes to the next day
+
+If hours are in the future from current date -- they are shown disabled
+If hours are not logged yet -- they are shown as "bold" or other colour inviting to log
+Logged hours are shown in normal font -- i.e. not inviting
+
+Once you navigated all the way to the top you see a Day label which when clicked moves the view to the previous day.
+Same for navigating to the bottom
+
+Scroll should work to scroll to the top/bottom but to switch the day once has to click the day label.
 
 """
 
@@ -103,7 +136,8 @@ class PreciousWindow():
       good_button_init_color = ("#444444", "#bbbbbb")
 
 
-    temp_hours = (' 1 PM', ' 2 PM', ' 3 PM', ' 4 PM', ' 5 PM', ' 6 PM', ' 7 PM', ' 8 PM', ' 9 PM', ' 10 PM', ' 11 PM')
+    temp_hours = ('Go to 28 Apr 2020', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM',
+                  '1 PM', '2 PM', '3 PM', ' 4 PM', ' 5 PM', ' 6 PM', ' 7 PM', ' 8 PM', ' 9 PM', ' 10 PM', '11 PM', '12 AM', 'Go to 30 Apr 2020')
 
     # hour list column
     column1 = [
@@ -113,7 +147,7 @@ class PreciousWindow():
         enable_events=True, 
         key="select_hour", 
         background_color=sg.theme_background_color(), 
-        no_scrollbar=True)], #, sg.VerticalSeparator()],
+        no_scrollbar=False)], #, sg.VerticalSeparator()],
     ]
 
     # main column
@@ -125,7 +159,7 @@ class PreciousWindow():
           self.app.get_hour_label(), 
           key="open_day", 
           size=(18,1), 
-          pad=((65, 0), (0, 0)), 
+          pad=((65, 0), (0, 0)), # 140+65 when arrow keys are off 
           button_color=(sg.theme_text_color(), 
           sg.theme_background_color()), 
           border_width=0, 
@@ -175,7 +209,7 @@ class PreciousWindow():
     # All the stuff inside the window
     layout = [ 
       [
-        # sg.Column(column1),
+        sg.Column(column1),
         sg.Column(column2)
       ]
     ]
