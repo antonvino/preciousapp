@@ -52,7 +52,8 @@ def init_db(db_path):
 
   # Create table
   c.execute('''CREATE TABLE IF NOT EXISTS tags (
-                  name char(25) unique not null
+                  name char(25) not null,
+                  UNIQUE(name) ON CONFLICT REPLACE
             )''')
 
   # Insert data
@@ -68,6 +69,15 @@ def init_db(db_path):
   c.execute("SELECT rowid, * FROM tags")
   print(c.fetchall())
 
+  # Create table
+  c.execute('''CREATE TABLE IF NOT EXISTS tags_hours (
+                  tag_id integer not null,
+                  hour_id integer not null,
+                  PRIMARY KEY(tag_id, hour_id)
+            ) WITHOUT ROWID''')
+  conn.commit()
+
+
   print("Database initialized")
 
   conn.close()
@@ -81,5 +91,7 @@ def delete_tables(db_path):
   c.execute('''DROP TABLE IF EXISTS days''')
   conn.commit()
   c.execute('''DROP TABLE IF EXISTS tags''')
+  conn.commit()
+  c.execute('''DROP TABLE IF EXISTS tags_hours''')
   conn.commit()
   conn.close()

@@ -42,7 +42,7 @@ class PreciousData():
         val_str += "{0}=?".format(key)
         val_list.append(val)
 
-      c.execute("SELECT * FROM {0} WHERE {1}".format(item, val_str), tuple(val_list) )
+      c.execute("SELECT rowid,* FROM {0} WHERE {1}".format(item, val_str), tuple(val_list) )
       
       if one:
         data = c.fetchone() # single item, not list
@@ -50,19 +50,33 @@ class PreciousData():
         data = c.fetchall()
 
     else:
-      c.execute("SELECT * FROM {0}".format(item))
+      c.execute("SELECT rowid,* FROM {0}".format(item))
       data = c.fetchall()
     
     conn.close()
     return data      
+    
 
-
-  def delete_all(self, item):
+  def delete_all(self, item, filters = None):
     # connect to db and initialize cursor
     conn = sqlite3.connect(self.db_path)
     c = conn.cursor()
 
-    c.execute("DELETE FROM {0}".format(item))
+    if filters is not None:
+
+      val_str = ""
+      val_list = []
+      for (key,val) in filters.items():
+        if len(val_str) > 1:
+          val_str += " AND "
+        val_str += "{0}=?".format(key)
+        val_list.append(val)
+
+      c.execute("DELETE FROM {0} WHERE {1}".format(item, val_str), tuple(val_list) )
+
+    else:
+      c.execute("DELETE FROM {0}".format(item))
+
     conn.commit()
 
 
@@ -71,6 +85,10 @@ class PreciousData():
     conn = sqlite3.connect(self.db_path)
     c = conn.cursor()
     data = []
+
+    if(len(values) < 1):
+      print("no values")
+      return None
 
     val_str = ""
     for (i,val) in enumerate(values):
@@ -105,13 +123,23 @@ class PreciousData():
       val_str += "?"
       val_list.append(val)
 
-    if item == "hours":
+    if item == "hours" or item == "tags_hours":
 
-      print(val_str)
-      print(val_list)
       c.execute("INSERT INTO {0} VALUES ({1})".format(item, val_str), tuple(val_list))
       data = {"id":c.lastrowid} # response
       conn.commit()
     
+    conn.close()
+    return data      
+
+
+  def get_tags(self, item, id):
+    # connect to db and initialize cursor
+    conn = sqlite3.connect(self.db_path)
+    c = conn.cursor()
+
+    c.execute("SELECT tags.rowid, tags.name FROM tags INNER JOIN tags_{0}s ON tags.rowid = tags_{0}s.tag_id AND tags_{0}s.{0}_id = ?".format(item), (id,) )
+    data = c.fetchall()
+
     conn.close()
     return data      

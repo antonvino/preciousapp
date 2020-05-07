@@ -37,6 +37,24 @@ class PreciousApp:
     self.hour = int(self.curr_time.strftime('%H')) # need a 24 hour   
 
 
+  def get_time(self, timestamp):
+    """
+    Takes given timestamp and gets the date/time data
+    """
+    curr_time = datetime.fromtimestamp(timestamp)
+    return {
+      "time": curr_time,
+      "hour": int(self.curr_time.strftime('%H')) # need a 24 hour   
+    }
+
+
+  def get_hour_short_label(self, label_time = None):
+    if label_time is not None:
+      return label_time.strftime('%I %p')
+    else:
+      return self.curr_time.strftime('%I %p')
+
+
   def get_hour_label(self, label_time = None):
     if label_time is not None:
       return label_time.strftime('%a %d %b, %I %p')
@@ -72,6 +90,10 @@ class PreciousApp:
     self.load_time(self.curr_timestamp + 3600)
 
 
+  def change_hour(self, change):
+    self.load_time(self.curr_timestamp + 3600 * change)
+
+
   def load_hour(self):
     filters = {
       "year": self.year,
@@ -82,6 +104,7 @@ class PreciousApp:
     data = self.data.fetch("hours", filters, True)
     if data is None:
       self.hour_data = {
+        "id": 0,
         "text": "Log this hour",
         "rating": 0,
         "timestamp": int(self.curr_timestamp),
@@ -92,42 +115,46 @@ class PreciousApp:
       }
     else:
       self.hour_data = {
-        "text": data[0],
-        "rating": data[1],
-        "timestamp": data[2],
-        "year": data[3],
-        "month": data[4],
-        "day": data[5],
-        "hour": data[6]
+        "id": data[0],
+        "text": data[1],
+        "rating": data[2],
+        "timestamp": data[3],
+        "year": data[4],
+        "month": data[5],
+        "day": data[6],
+        "hour": data[7]
       }
-
 
   def get_tags(self, decorator = ""):
     tags = []
     data = self.data.fetch("tags")
     for tag in data:
-      tags.append("{0}{1}".format(decorator, tag[0]))
+      tags.append("{0}{1}".format(decorator, tag[1]))
+    # return the tags list
+    return tags
+
+  def get_item_tags(self, item = None, id = None, decorator = ""):
+    tags = []
+    data = self.data.get_tags(item, id)
+    for tag in data:
+      tags.append("{0}{1}".format(decorator, tag[1]))
     # return the tags list
     return tags
 
 
   def save_tags(self, tags):
     self.data.delete_all("tags")
+    self.add_tags(tags)
+
+
+  def add_tags(self, tags):
     db_tags = []
     for tag in tags:
       db_tags.append({"name": tag})
     self.data.insert_many("tags",db_tags)
 
 
-  def save_hour(self, text, rating, tags):
-    tag_str = ""
-    for tag in tags:
-      if len(tag_str) > 1:
-        tag_str += " "
-      tag_str += "{0}".format(tag)
-
-    text += "\n{0}".format(tag_str)
-
+  def save_hour(self, text, rating, selected_tags):
     self.hour_data['text'] = text
     self.hour_data['rating'] = rating
     self.hour_data['timestamp'] = int(self.curr_timestamp)
@@ -137,7 +164,18 @@ class PreciousApp:
     self.hour_data['hour'] = self.hour
 
     db_hour = [text, rating, int(self.curr_timestamp), self.year, self.month, self.day, self.hour]
-    self.data.insert("hours", db_hour)
+    new_hour = self.data.insert("hours", db_hour)
+    self.hour_data['id'] = new_hour['id']
+
+    # delete all attached tags that could exist for this hour
+    self.data.delete_all("tags_hours", {"hour_id": new_hour['id']})
+
+    # load all tags
+    tags = self.data.fetch("tags")
+    for tag in tags:
+      # if tag is selected -- add a connection
+      if tag[1] in selected_tags:
+        self.data.insert("tags_hours", [tag[0], new_hour['id']])
 
 
   # def updateDisplayDay(self):
@@ -153,20 +191,3 @@ class PreciousApp:
   #   else:
   #     self.dayField.setStringValue_('')
   #     self.dayLabel.setTextColor_(NSColor.redColor())
-
-  # def switchDate(self):
-  #   """
-  #   Loads the hour & day data and calls display update
-  #   """
-  #   # get the time data
-  #   self.reloadTime()
-  #   # load the data
-  #   self.clearData()
-  #   self.loadData(
-  #     year = self.curr_time.year,
-  #     month = self.curr_time.month,
-  #     day = self.curr_time.day,
-  #     hour = self.curr_time.hour)
-  #   # update the interface
-  #   self.updateDisplayDay()
-  #   self.updateDisplayHour()  
