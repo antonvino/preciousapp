@@ -1,29 +1,30 @@
 # preciousapp
-App to appreciate time and hours
+Time is precious, so log what you are going to do or did every hour, use tags. Later can plot your progress and see some very nice insights about your productivity patterns.
+
+It has been proven that reviewing your days helps you increase productivity and improves your mood because you feel tangible improvements of your life and personality. Logging your hours helps you value every hour while catching yourself on how you get lazy or procrastinate. This app is a simple tool that can do wonders.
 
 # How to launch
-python3 precious.py
-
-# Requirements
-For development need to install
-
-apt-get install tkinter
-
-AND
-
-pip install pysimplegui
-
-or
-
-pip3 install pysimplegui
-
-
-sqlite (in Python) is used for database management
+```python3 precious.py```
 
 # PySimpleGUI
 This library is used to create the GUI of the app
 
 All docs are here https://pysimplegui.readthedocs.io/en/latest/
+
+# Requirements
+As per PySimpleGUi docs for development need to install tkinter
+
+```apt-get install tkinter```
+
+AND
+
+```pip install pysimplegui```
+
+or (usually needed on linux)
+
+```pip3 install pysimplegui```
+
+sqlite (in Python) is used for database management and should be installed in your Python
 
 
 # TODO
