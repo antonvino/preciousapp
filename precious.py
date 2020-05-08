@@ -120,32 +120,33 @@ class PreciousWindow():
     sg.theme('DarkBlue14')
     # sg.theme('Default')
 
-    sg.theme_text_color('#c0c0c0')
-    cols = sg.theme_button_color()
-    sg.theme_button_color(tuple(['#c0c0c0', cols[1]]))
-    sg.theme_element_text_color('#c0c0c0')
-    sg.theme_input_text_color('#c0c0c0')
-    # sg.theme_text_element_background_color('#c0c0c0')
-    # sg.theme_element_background_color('#c0c0c0')
+    sg.theme_background_color('#0f3c3b')
+    sg.theme_text_color('#59bdbb')
+    # cols = sg.theme_button_color()
+    sg.theme_button_color(tuple(['#93c6c5', '#008382']))
+    sg.theme_element_text_color('#59bdbb')
+    sg.theme_input_text_color('#59bdbb')
+    sg.theme_text_element_background_color('#0f3c3b')
+    sg.theme_element_background_color('#0f3c3b')
 
     empty_button_color = (sg.theme_background_color(), sg.theme_background_color())
 
     if(self.app.hour_data['rating'] == -1):
-      bad_button_init_color = ("#444444", "#bbbbbb")
+      bad_button_init_color = ("#222222", "#93c6c5")
       neutral_button_init_color = sg.theme_button_color()
       good_button_init_color = sg.theme_button_color()
     if(self.app.hour_data['rating'] == 0):
       bad_button_init_color = sg.theme_button_color()
-      neutral_button_init_color = ("#444444", "#bbbbbb")
+      neutral_button_init_color = ("#222222", "#93c6c5")
       good_button_init_color = sg.theme_button_color()
     if(self.app.hour_data['rating'] == 1):
       bad_button_init_color = sg.theme_button_color()
       neutral_button_init_color = sg.theme_button_color()
-      good_button_init_color = ("#444444", "#bbbbbb")
+      good_button_init_color = ("#222222", "#93c6c5")
 
     column1 = [
-      [sg.Button("Now", key="now", size=(5,1), font='Roboto 10', border_width=0, pad=((5, 5), (5, 20)) )],
-      [sg.Button(u'\N{BLACK UP-POINTING TRIANGLE}',   key="up",  size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
+      [sg.Button("Now", key="now", size=(5,1), font='Roboto 11', border_width=0, pad=((5, 5), (5, 20)) )],
+      [sg.Button(u'\N{BLACK UP-POINTING TRIANGLE}',   key="prev",  size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     ]
 
     for i in range(-3,4):
@@ -170,12 +171,12 @@ class PreciousWindow():
           # pad=((65, 0), (0, 0)), # 140+65 when arrow keys are off 
           button_color=color, 
           border_width=0, 
-          font='Roboto 10'
+          font='Roboto 11'
         )] 
       )
 
     column1.append(
-      [sg.Button(u'\N{BLACK DOWN-POINTING TRIANGLE}', key="down", size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
+      [sg.Button(u'\N{BLACK DOWN-POINTING TRIANGLE}', key="next", size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     )
     # hour list column
     # column1 = [
@@ -192,75 +193,80 @@ class PreciousWindow():
     # main column
     column2 = [
       [
-        sg.Sizer(h_pixels=680), 
-        sg.Button("Day",  key="day",  border_width=0, pad=((5, 5), (5, 20))), 
-        sg.Button("Plot", key="plot", border_width=0, pad=((5, 5), (5, 20)))
-      ],
-      [sg.Sizer(v_pixels=40)],
-
-      # the hour switch row
-      [
         sg.Text(
           self.app.get_hour_label(), 
           key="current", 
-          size=(20,1), 
+          size=(21,1), 
           # background_color="#555555",
-          justification='center',
-          # button_color=(sg.theme_text_color(), 
-          # sg.theme_background_color()), 
-          # border_width=0, 
-          font='Roboto 14 normal'
-        ), 
+          justification='left',
+          font='Roboto 17 normal',
+          pad=((10, 5), (5, 5))
+        ),
+        # sg.Text("", size=(40,1)),
+        sg.Button("Log day",   key="day",  border_width=0, pad=((5, 5), (5, 5))), 
+        sg.Button("View plot", key="plot", border_width=0, pad=((5, 5), (5, 5)))
       ],
+      # [sg.Text("", font='Roboto 6 normal', size=(40,1))],
+
       # the rating row
       [
-        sg.Button('Bad',     key="bad",     font="Roboto 10 normal", size=(5,1), pad=((0, 0), (10, 0)), border_width=0, button_color=bad_button_init_color ),
-        sg.Button('Neutral', key="neutral", font="Roboto 10 normal", size=(5,1), pad=((0, 0), (10, 0)), border_width=0, button_color=neutral_button_init_color ), 
-        sg.Button('Good',    key="good",    font="Roboto 10 normal", size=(5,1), pad=((0, 0), (10, 0)), border_width=0, button_color=good_button_init_color )
+        sg.Button('Bad',     key="bad",     font="Roboto 11 normal", size=(5,1), pad=((5, 0), (10, 5)), border_width=0, button_color=bad_button_init_color ),
+        sg.Button('Neutral', key="neutral", font="Roboto 11 normal", size=(5,1), pad=((0, 0), (10, 5)), border_width=0, button_color=neutral_button_init_color ), 
+        sg.Button('Good',    key="good",    font="Roboto 11 normal", size=(5,1), pad=((0, 0), (10, 5)), border_width=0, button_color=good_button_init_color )
       ],
 
       # the textarea and tag row
       [
         sg.Multiline(
           default_text=self.app.get_hour_text(), 
-          size=(30, 8), 
+          size=(30, 10), 
           key="hour_text", 
-          pad=((5, 0), (15, 0)), 
+          pad=((5, 0), (15, 5)), 
           do_not_clear=True, focus=True, 
-          background_color=sg.theme_background_color(),
-          font="Roboto 10 normal" 
+          background_color='#005e5c',
+          text_color='#93c6c5',
+          border_width=0,
+          font="Roboto 11 normal"
         ),
+        # sg.Text("", size=(5,1)),
         sg.Listbox(
           values=self.app.get_tags("#"), 
-          size=(20, 8), 
+          size=(20, 10), 
           enable_events=False, 
           key="select_tag", 
           select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
           background_color=sg.theme_background_color(), 
-          pad=((5, 0), (15, 0)), 
+          pad=((5, 0), (15, 5)), 
           no_scrollbar=False, 
+          font="Roboto 11 normal",
           right_click_menu = ['!Tags', ['!Tags', '&Edit tags::edit_tags']]
         )
       ],
 
       # the action button row
       [
-        sg.Text('Status.', justification="left", key="status", size=(26,1), pad=((15, 5), (15, 0)), text_color='#f0f056'),
-        sg.Sizer(h_pixels=20),
-        sg.Button('', key="cancel", font="Roboto 10 normal", border_width=0, size=(8,1), pad=((10, 0), (15, 0)), button_color=empty_button_color), 
-        sg.Button('Save hour', key="save", font="Roboto 12 normal", border_width=0, size=(8,1), pad=((5, 0), (15, 0))), 
+        sg.Text('', justification="left", key="status", size=(28,1), pad=((10, 10), (15, 0)), text_color='#f0f056'),
+        sg.Button('', key="cancel", font="Roboto 11 normal", border_width=0, size=(9,1), pad=((10, 0), (15, 0)), button_color=empty_button_color), 
+        sg.Button('Save hour', key="save", font="Roboto 11 normal", border_width=0, size=(8,1), pad=((5, 0), (15, 0))), 
       ],
-      [
-        sg.Sizer(h_pixels=405),        
-      ]
     ]
 
     # All the stuff inside the window
     layout = [ 
       [
-        sg.Column(column1, size=(150,600), element_justification='center' ),
+        sg.Column(
+          column1, 
+          element_justification='center',
+          # size=(150,600)
+        ),
         sg.VerticalSeparator(),
-        sg.Column(column2, size=(910,600), pad=((20,5),(5,5)), justification='center', element_justification='center')
+        sg.Column(
+          column2, 
+          justification='center', 
+          element_justification='left',
+          # size=(910,600), 
+          pad=((20,5),(5,5)), 
+        )
       ]
     ]
 
@@ -269,9 +275,9 @@ class PreciousWindow():
 
     # Create the Window
     self.window = sg.Window(
-      'My time is precious', 
+      'Precious', 
       layout, 
-      font='Roboto 10 normal',
+      font='Roboto 11 normal',
       resizable=False, 
       location=(2400,200),
       finalize=True,
@@ -289,37 +295,22 @@ class PreciousWindow():
     hour_text.Update(value=self.app.get_hour_text())
 
     self.update_rating(self.app.hour_data['rating'])
-
     self.update_tags("hour", self.app.hour_data['id'])
-
-
-  def to_prev_hour(self):
-    self.app.to_prev_hour()
-    self.app.load_hour()
-    self.app.load_time(self.app.hour_data['timestamp'])
-    self.update_hour()
-
-
-  def to_next_hour(self):
-    self.app.to_next_hour()
-    self.app.load_hour()
-    self.app.load_time(self.app.hour_data['timestamp'])
-    self.update_hour()
 
 
   def update_rating(self, rating):
     if(rating == -1):
-      bad_button_color = ("#444444", "#bbbbbb")
+      bad_button_color = ("#222222", "#93c6c5")
       neutral_button_color = sg.theme_button_color()
       good_button_color = sg.theme_button_color()
     if(rating == 0):
       bad_button_color = sg.theme_button_color()
-      neutral_button_color = ("#444444", "#bbbbbb")
+      neutral_button_color = ("#222222", "#93c6c5")
       good_button_color = sg.theme_button_color()
     if(rating == 1):
       bad_button_color = sg.theme_button_color()
       neutral_button_color = sg.theme_button_color()
-      good_button_color = ("#444444", "#bbbbbb")
+      good_button_color = ("#222222", "#93c6c5")
 
     bad_button = self.window["bad"]
     bad_button.Update(button_color=bad_button_color)
@@ -354,8 +345,20 @@ class PreciousWindow():
       # merge list
       tags = tags + valid_tags
 
-      self.app.save_hour(values['hour_text'], self.curr_rating, tags)
+      text = values['hour_text']
+      # saving textarea always gives an extra newline so let's delete it
+      if text.find("\n", len(text)-1, len(text)) != -1:
+        text = text[0:len(text)-1]
+
+      self.app.save_hour(text, self.curr_rating, tags)
       self.update_hour()
+      
+      status = self.window["status"]
+      status.Update(value="Hour saved.")
+      self.window.Finalize()
+      sleep(0.7)
+      status.Update(value="")
+
 
     else: # edit tags
       tags = values['hour_text'].split(", #")
@@ -366,8 +369,11 @@ class PreciousWindow():
           valid_tags.append(tag)
       self.app.save_tags(valid_tags)
 
-      open_button = self.window["status"]
-      open_button.Update(value="Tags saved.")
+      status = self.window["status"]
+      status.Update(value="Tags saved.")
+      self.window.Finalize()
+      sleep(0.5)
+      status.Update(value="")
 
       self.cancel_edit_tags()
       self.update_hour() # reload hour data
@@ -375,7 +381,7 @@ class PreciousWindow():
 
   def update_tags(self, item, id):
     # tags = self.window['select_tag'].get_list_values()
-    tags = self.app.get_tags()
+    tags = self.app.get_tags("#")
     self.window['select_tag'].Update(values=tags)
 
     attached_tags = self.app.get_item_tags(item, id)
@@ -430,14 +436,18 @@ class PreciousWindow():
     self.edit_tags = False
 
 
-  def change_hour(self, label, change):
-    # self.window[label].Update
-    # print(change)
-
-    self.app.change_hour(change)
+  def current_hour(self):
+    self.app.load_current_time()
     self.app.load_hour()
-    self.app.load_time(self.app.hour_data['timestamp'])
-    self.update_hour()
+    self.change_hour("now", 0)
+
+
+  def change_hour(self, label, change):
+
+    # animation delay
+    delay = abs(change)
+    if delay == 0:
+      delay = 5 # to load "now" -- have a longer delay
 
     labels = {
       # "hour_dec_4": -4,
@@ -450,8 +460,12 @@ class PreciousWindow():
       "hour_inc_3": 3,
       # "hour_inc_4": 4,
     }
+    self.animation_hide(labels.keys(), delay)
 
-    self.animation_hide(labels.keys())
+    self.app.change_hour(change)
+    self.app.load_hour()
+    self.app.load_time(self.app.hour_data['timestamp'])
+    self.update_hour()
 
     for label,dt in labels.items():
       # dt = i - round(len(labels)/2)
@@ -460,11 +474,9 @@ class PreciousWindow():
       # labels[label] = hour['time']
       self.window[label].Update(text=self.app.get_hour_short_label(hour['time']))
 
-    # for 
-
     self.window["hour_current"].Update(text=self.app.get_hour_short_label())
 
-    self.animation_show(labels.keys())
+    self.animation_show(labels.keys(), delay)
 
     # for i in range(-4,5):
     #   hour = self.app.get_time(self.app.curr_timestamp + 3600 * i)
@@ -489,48 +501,54 @@ class PreciousWindow():
     #       # pad=((65, 0), (0, 0)), # 140+65 when arrow keys are off 
     #       button_color=color, 
     #       border_width=0, 
-    #       font='Roboto 10'
+    #       font='Roboto 11'
     #     )] 
     #   )
 
 
 
-  def animation_hide(self, labels):
+  def animation_hide(self, labels, delay):
+    if delay < 2:
+      return False
+
     anim_colors = [
-      "#AAAAAA",
+      sg.theme_text_color(),
       "#999999",
       "#888888",
       "#777777",
       "#666666",
       "#555555",
-      "#444444",
-      "#333333",
-      "#222222"
-    ]
-    for col in anim_colors:
-      for label in labels:
-        self.window[label].Update(button_color=(col, sg.theme_background_color()))
-      self.window.Finalize()
-      sleep(0.01)
-
-
-  def animation_show(self, labels):
-    anim_colors = [
       "#222222",
       "#333333",
-      "#444444",
-      "#555555",
-      "#666666",
-      "#777777",
-      "#888888",
-      "#999999",
-      "#AAAAAA"
+      sg.theme_background_color()
     ]
     for col in anim_colors:
       for label in labels:
         self.window[label].Update(button_color=(col, sg.theme_background_color()))
       self.window.Finalize()
-      sleep(0.01)
+      sleep(0.005 * float(delay))
+
+
+  def animation_show(self, labels, delay):
+    if delay < 2:
+      return False
+
+    anim_colors = [
+      sg.theme_background_color(),
+      "#333333",
+      "#222222",
+      "#555555",
+      "#666666",
+      "#777777",
+      "#888888",
+      "#999999",
+      sg.theme_text_color()
+    ]
+    for col in anim_colors:
+      for label in labels:
+        self.window[label].Update(button_color=(col, sg.theme_background_color()))
+      self.window.Finalize()
+      sleep(0.005 * float(delay))
 
 
 
@@ -550,20 +568,18 @@ if __name__ == "__main__":
     elif event == 'select_hour':
       print("Hour selected: {0}".format(values['select_hour']))
 
-    # open day window
-    elif event == 'current':
-      print(w.window.current_location())
-      # event, values  = sg.Window('SHA-1 & 256 Hash', [[sg.Text('SHA-1 and SHA-256 Hashes for the file')],
-      #                         [sg.InputText(), sg.FileBrowse()],
-      #                         [sg.Submit(), sg.Cancel()]]).read(close=True)
-      # source_filename = values[0]    
-      pass
+    elif event == 'hour_current':
+      # print(w.window.current_location())
+      w.change_hour(event, 0)
 
-    elif event == 'prev_hour':
-      w.to_prev_hour()
+    elif event == 'now':
+      w.current_hour()      
 
-    elif event == 'next_hour':
-      w.to_next_hour()
+    elif event == 'prev':
+      w.change_hour(event, -1)
+
+    elif event == 'next':
+      w.change_hour(event, +1)
 
     elif event == 'Edit tags::edit_tags':
       w.start_edit_tags()

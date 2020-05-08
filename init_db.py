@@ -59,9 +59,12 @@ def init_db(db_path):
   # Insert data
   print("Inserting")
   c.execute('''INSERT INTO tags VALUES 
-                  ('mytag'),
-                  ('another-tag'),
-                  ('last_tag')''')
+                  ('work'),
+                  ('self-development'),
+                  ('sport'),
+                  ('family'),
+                  ('friends')
+            ''')
   print(c.lastrowid)
   conn.commit()
 

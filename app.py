@@ -105,7 +105,7 @@ class PreciousApp:
     if data is None:
       self.hour_data = {
         "id": 0,
-        "text": "Log this hour",
+        "text": "",
         "rating": 0,
         "timestamp": int(self.curr_timestamp),
         "year": self.year,
