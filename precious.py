@@ -171,7 +171,7 @@ class PreciousWindow():
 
     column1 = [
       # [sg.Text("", size=(5,1), font='Roboto 8', pad=((0, 0), (0, 0)) )],
-      [sg.Button("Now", key="now", size=(5,1), font='Roboto 14 normal', border_width=0, pad=((5, 5), (5, 5)) )],
+      [sg.Button("Now", key="now", size=(5,1), font='Roboto 14 normal', border_width=0, pad=((5, 5), (15, 5)) )],
       [sg.Button(u'\N{BLACK UP-POINTING TRIANGLE}',   key="prev",  size=(5,1), font='Roboto 16', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     ]
 
@@ -224,9 +224,9 @@ class PreciousWindow():
           key="current", 
           size=(17,1), 
           # background_color="#555555",
-          justification='left',
+          justification='center',
           font='Roboto 16 normal',
-          pad=((15, 5), (5, 15))
+          pad=((25, 5), (15, 5))
         ),
         # sg.Text("", size=(40,1)),
         # sg.Button("Log day",   key="day",  border_width=0, pad=((5, 5), (5, 5))), 
@@ -238,7 +238,7 @@ class PreciousWindow():
           size=(1,1),
           font='Roboto 14',
           # button_color=(sg.theme_background_color(), sg.theme_background_color()), 
-          pad=((5, 5), (5, 15))
+          pad=((5, 5), (15, 5))
           # pad=((0, 0), (0, 0))
         )
       ],
@@ -246,9 +246,9 @@ class PreciousWindow():
 
       # the rating row
       [
-        sg.Button('Bad',     key="bad",     font="Roboto 12 normal", size=(6,1), pad=((15, 0), (10, 5)), border_width=0, button_color=bad_button_init_color ),
-        sg.Button('Neutral', key="neutral", font="Roboto 12 normal", size=(8,1), pad=((0, 0), (10, 5)), border_width=0, button_color=neutral_button_init_color ), 
-        sg.Button('Good',    key="good",    font="Roboto 12 normal", size=(6,1), pad=((0, 0), (10, 5)), border_width=0, button_color=good_button_init_color )
+        sg.Button('Bad',     key="bad",     font="Roboto 12 normal", size=(6,1), pad=((15, 0), (15, 5)), border_width=0, button_color=bad_button_init_color ),
+        sg.Button('Neutral', key="neutral", font="Roboto 12 normal", size=(8,1), pad=((0, 0),  (15, 5)), border_width=0, button_color=neutral_button_init_color ), 
+        sg.Button('Good',    key="good",    font="Roboto 12 normal", size=(6,1), pad=((0, 15),  (15, 5)), border_width=0, button_color=good_button_init_color )
       ],
 
       # the textarea and tag row
@@ -257,7 +257,7 @@ class PreciousWindow():
           default_text=self.app.get_hour_text(), 
           size=(27, 5), 
           key="hour_text", 
-          pad=((25, 0), (15, 5)), 
+          pad=((25, 25), (15, 5)), 
           do_not_clear=True, focus=True, 
           background_color='#005e5c',
           text_color='#93c6c5',
@@ -274,7 +274,7 @@ class PreciousWindow():
           key="select_tag", 
           select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
           background_color=sg.theme_background_color(), 
-          pad=((25, 0), (15, 5)), 
+          pad=((25, 25), (15, 5)), 
           no_scrollbar=False, 
           # font="Roboto 12 normal",
           right_click_menu = ['!Tags', ['!Tags', '&Delete selected::delete_tags']]
