@@ -1,1 +1,0 @@
-{"activate_each_hour": 1, "is_new_version": 1}
