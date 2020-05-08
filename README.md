@@ -1,7 +1,7 @@
-# preciousapp
+# Precious App
 Time is precious, so log what you are going to do or did every hour, use tags. Later can plot your progress and see some very nice insights about your productivity patterns.
 
-It has been proven that reviewing your days helps you increase productivity and improves your mood because you feel tangible improvements of your life and personality. Logging your hours helps you value every hour while catching yourself on how you get lazy or procrastinate. This app is a simple tool that can do wonders.
+It has been proven that reviewing your days helps you increase productivity and improves your mood because you feel more in control and see tangible improvements of your life and personality. Logging your hours helps you value every hour while catching yourself on how you get lazy or procrastinate. This app is a simple tool that can do wonders.
 
 # How to launch
 ```python3 precious.py```
