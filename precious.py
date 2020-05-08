@@ -171,7 +171,7 @@ class PreciousWindow():
 
     column1 = [
       # [sg.Text("", size=(5,1), font='Roboto 8', pad=((0, 0), (0, 0)) )],
-      [sg.Button("Now", key="now", size=(5,1), font='Roboto 12', border_width=0, pad=((5, 5), (20, 5)) )],
+      [sg.Button("Now", key="now", size=(5,1), font='Roboto 14 normal', border_width=0, pad=((5, 5), (5, 5)) )],
       [sg.Button(u'\N{BLACK UP-POINTING TRIANGLE}',   key="prev",  size=(5,1), font='Roboto 16', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     ]
 
@@ -226,11 +226,21 @@ class PreciousWindow():
           # background_color="#555555",
           justification='left',
           font='Roboto 16 normal',
-          pad=((15, 5), (5, 5))
+          pad=((15, 5), (5, 15))
         ),
         # sg.Text("", size=(40,1)),
         # sg.Button("Log day",   key="day",  border_width=0, pad=((5, 5), (5, 5))), 
-        sg.Button(image_filename="./icons/baseline_insert_chart_outlined_black_24dp.png", key="plot", border_width=0, button_color=(sg.theme_background_color(), sg.theme_background_color()), pad=((0, 0), (0, 0)))
+        sg.Button(
+          u'\u2608', 
+          # image_filename="./icons/baseline_insert_chart_outlined_black_24dp.png", 
+          key="plot", 
+          border_width=0, 
+          size=(1,1),
+          font='Roboto 14',
+          # button_color=(sg.theme_background_color(), sg.theme_background_color()), 
+          pad=((5, 5), (5, 15))
+          # pad=((0, 0), (0, 0))
+        )
       ],
       # [sg.Text("", font='Roboto 6 normal', size=(40,1))],
 

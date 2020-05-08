@@ -34,7 +34,7 @@ sqlite (in Python) is used for database management and should be installed in yo
 
 ## For first release:
 
-- [ ] Autosave hour all the time, on every click or even with timer (autosave) — that’s how notes do it
+- [x] Autosave hour all the time, on every click or even with timer (autosave) — that’s how notes do it
 - [x] Textarea adds \n on every save, remove the last \n from text…
 - [x] Status text should be on the left bottom
 - [x] Click on “up” should move one hour up, same with “down” — hour down
@@ -44,7 +44,6 @@ sqlite (in Python) is used for database management and should be installed in yo
 - [ ] “Day”  button should load the day logging — text area should the day, label shows day, save button has “save day”, cancel button should say “back to hours” which leads to the current hour of the chosen day. List of hours should show days in the day mode. Now button should be “today”. “Day” button should become “Hour”.     Another, simpler, option would be to open a separate window with the same layout and just arrows for days but it may make things cumbersome.
 - [x] Saving hour should not remove # from tags, need to add # in update_tags function
 - [x] Hour text should be empty if hour has not been saved yet
-- [ ] Ctrl+Enter should save hour/day, Ctrl+S should do the same
 - [ ] Button up from 5AM should offer to go to Previous day which rolls hours so that 5AM is at the bottom. Below 12AM should offer to go to Next day which rolls hours so that 1AM is at the top
 - [x] Default tags should be: “work”, “self-development”, “sport”, “family”, “friends”
 - [x] Design the colours fully for dark mode, use green colours from the logo — nice to keep the theme going
