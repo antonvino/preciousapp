@@ -200,7 +200,6 @@ class PreciousWindow():
 
       # the hour switch row
       [
-        # sg.Button('←', key="prev_hour", font="Roboto 12 normal", size=(4,1)), 
         sg.Text(
           self.app.get_hour_label(), 
           key="current", 
@@ -212,9 +211,7 @@ class PreciousWindow():
           # border_width=0, 
           font='Roboto 14 normal'
         ), 
-        # sg.Button('→', key="next_hour", font="Roboto 12 normal", pad=((65, 0), (0, 0)), size=(4,1)),
       ],
-      # [sg.Text("")],
       # the rating row
       [
         sg.Button('Bad',     key="bad",     font="Roboto 10 normal", size=(5,1), pad=((0, 0), (10, 0)), border_width=0, button_color=bad_button_init_color ),
