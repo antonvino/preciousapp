@@ -145,7 +145,7 @@ class PreciousWindow():
 
     column1 = [
       [sg.Button("Now", key="now", size=(5,1), font='Roboto 10', border_width=0, pad=((5, 5), (5, 20)) )],
-      [sg.Button("▲",   key="up",  size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
+      [sg.Button(u'\N{BLACK UP-POINTING TRIANGLE}',   key="up",  size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     ]
 
     for i in range(-3,4):
@@ -175,7 +175,7 @@ class PreciousWindow():
       )
 
     column1.append(
-      [sg.Button("▼", key="down", size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
+      [sg.Button(u'\N{BLACK DOWN-POINTING TRIANGLE}', key="down", size=(5,1), font='Roboto 12', button_color=(sg.theme_text_color(), sg.theme_background_color()), border_width=0, pad=((5, 5), (5, 5)) )]
     )
     # hour list column
     # column1 = [
