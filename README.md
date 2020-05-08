@@ -50,13 +50,13 @@ All docs are here https://pysimplegui.readthedocs.io/en/latest/
 
 ## Features:
 
-[ ] Settings: save last window position (every save of hour also saves last window positions) and open app window where it was last opened
-[ ] Settings: dark mode / light mode
-[ ] Encryption: encrypt when saving, decrypt when showing. Do with dummy auto password as first to test
-[ ] Settings: need to set up password for encryption and switch encryption on/off
-[ ] Settings: Choose between 24hr OR PM/AM mode
-[ ] Settings: Autosaving on/off
-[ ] Settings: Show tip of the day on launch on/off
-[ ] Tip of the day: a separate little window with a tip, would be cool to draw isometric art for this i.e. “look at yourself from a 3rd person view — person at a phone sitting with a health bar?” Create a few tips and show them at random. Tips are shown at launch of the setting is not off (default: on)
-[ ] Add tooltips (pysimplegui supports that so why not)
-[ ] Plotting of data
+- [ ] Settings: save last window position (every save of hour also saves last window positions) and open app window where it was last opened
+- [ ] Settings: dark mode / light mode
+- [ ] Encryption: encrypt when saving, decrypt when showing. Do with dummy auto password as first to test
+- [ ] Settings: need to set up password for encryption and switch encryption on/off
+- [ ] Settings: Choose between 24hr OR PM/AM mode
+- [ ] Settings: Autosaving on/off
+- [ ] Settings: Show tip of the day on launch on/off
+- [ ] Tip of the day: a separate little window with a tip, would be cool to draw isometric art for this i.e. “look at yourself from a 3rd person view — person at a phone sitting with a health bar?” Create a few tips and show them at random. Tips are shown at launch of the setting is not off (default: on)
+- [ ] Add tooltips (pysimplegui supports that so why not)
+- [ ] Plotting of data
