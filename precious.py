@@ -2,7 +2,7 @@
 
 import PySimpleGUI as sg
 from app import PreciousApp
-from init_db import delete_tables
+from init_db import reset_db
 from get_icon import get_icon
 from time import sleep
 
@@ -27,16 +27,6 @@ This window loads the hour if it has been logged already (if you already logged 
 
 Window loads and shows all of your tags for hours (from db) and shows them as clickable buttons
 If you click that button it adds a tag to the hour log
-(currently they are added as #-tags but can consider just adding 
-connections in DB and displaying in the list or separate area to the text)
-
-TODO: Show the selected tags at the top of the list (sort)
-TODO: When hour is loaded -- load saved tags, highlight the selected tags (i.e. pre-select them)
-TODO: Decide how to save tags (separate text field? separate table that connects hours-tags? 
-      Approx 9000+ hours per year so lookup is not too bad even if we just store tags in the text and search for them
-      when searching for hours with certain tags
-TODO: sort tags with most used at the top
-
 
 ---
 
@@ -45,24 +35,22 @@ This data will be used to plot graphs later
 
 ---
 
-Log day window openable by a click on the day in the label (or other button?). 
+Log day window openable by a click on the day in the label (or other button -- UPD: menu). 
 Log day does the same thing as hour log just for a full day, it's simply a separate table in db
 
 ---
 
-OLD: Can click left/right arrow buttons in the window to travel through hours of the day.
 In this app we can have a "timetable" list on the left side as a column with all hours marked with certain colours 
 E.g. grey -- not filled in
 The list of hours should be the primary navigation between hours it's nicer!
 
 ---
 
-Hotkeys are a must
+Hotkeys
 Ctrl + First: key of tag selects it
-Enter: logs the hour
-Ctrl + S: also logs the hour
-Ctrl + Up arrow: move to prev hour
-Ctrl + Down arrow: move to next hour
+Enter/Space/.: logs the hour
+Up arrow: move to prev hour
+Down arrow: move to next hour
 
 ---
 
@@ -72,17 +60,9 @@ To be decided later
 
 ---
 
-Right click on tags -> edit tags
-Hides tags list, contents of textarea become tags which you can edit now
-Save hour -> save tags
+Edit tags in menu
+Replaces tags with inputs
 Extra button of different look says "Cancel" -- that closes tags editing without saving
-
----
-
-Clicking on the Day label at the top
-Changes the main textarea to the day's log text
-Save hour -> Save day (this button saves the day log)
-Extra button of different look says "Back to edit hours" -- which goes back to hour editing and does not save day log
 
 ---
 
@@ -324,8 +304,8 @@ class PreciousWindow():
     column3 = [
       [sg.Text("", justification='left', font='Roboto 16 normal', background_color=sg.theme_background_color(), pad=((5,5),(15,5)) )],
       [sg.Button("view plot",   key="plot",      button_color=(sg.theme_text_color(), sg.theme_background_color()))],
-      [sg.Button("review days", key="log_days",  button_color=(sg.theme_text_color(), sg.theme_background_color()), disabled=True )],
-      [sg.Button("edit tags",   key="edit_tags", button_color=(sg.theme_text_color(), sg.theme_background_color()) )],
+      [sg.Button("review days", key="log_days",  button_color=(sg.theme_text_color(), sg.theme_background_color()))],
+      [sg.Button("edit tags",   key="edit_tags", button_color=(sg.theme_text_color(), sg.theme_background_color()))],
       [sg.Text("-" * 18, size=(14,1), justification='center', background_color=sg.theme_background_color() )],
       [sg.Checkbox("dark mode", default=True)],
       [sg.Checkbox("24 hour mode", disabled=True)],
@@ -445,7 +425,7 @@ class PreciousWindow():
     self.update_hour()
 
     # TODO: save location
-    print(w.window.current_location())
+    # print(w.window.current_location())
     
 
   def update_tags(self, item, id):
@@ -579,7 +559,7 @@ class PreciousWindow():
 
 if __name__ == "__main__":
 
-  # delete_tables("data.db")
+  reset_db("data.db")
 
   w = PreciousWindow()
 
