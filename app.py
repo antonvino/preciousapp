@@ -125,33 +125,33 @@ class PreciousApp:
         "hour": data[7]
       }
 
-  def get_tags(self, decorator = ""):
+  def get_tags(self):
     tags = []
     data = self.data.fetch("tags")
     for tag in data:
-      tags.append("{0}{1}".format(decorator, tag[1]))
+      tags.append({"id":tag[0], "name":tag[1]})
     # return the tags list
     return tags
 
-  def get_item_tags(self, item = None, id = None, decorator = ""):
+  def get_item_tags(self, item = None, id = None):
     tags = []
     data = self.data.get_tags(item, id)
     for tag in data:
-      tags.append("{0}{1}".format(decorator, tag[1]))
-    # return the tags list
+      tags.append(tag[0])
+    # return the tags ID list
     return tags
 
 
-  def save_tags(self, tags):
-    self.data.delete_all("tags")
-    self.add_tags(tags)
+  # def save_tags(self, tags):
+  #   self.data.delete_all("tags")
+  #   self.add_tags(tags)
 
 
-  def add_tags(self, tags):
-    db_tags = []
-    for tag in tags:
-      db_tags.append({"name": tag})
-    self.data.insert_many("tags",db_tags)
+  # def add_tags(self, tags):
+  #   db_tags = []
+  #   for tag in tags:
+  #     db_tags.append({"name": tag})
+  #   self.data.insert_many("tags",db_tags)
 
 
   def save_hour(self, text, rating, selected_tags):
@@ -171,11 +171,14 @@ class PreciousApp:
     self.data.delete_all("tags_hours", {"hour_id": new_hour['id']})
 
     # load all tags
-    tags = self.data.fetch("tags")
-    for tag in tags:
-      # if tag is selected -- add a connection
-      if tag[1] in selected_tags:
-        self.data.insert("tags_hours", [tag[0], new_hour['id']])
+    # tags = self.data.fetch("tags")
+    # for tag in tags:
+    #   # if tag is selected -- add a connection
+    #   if tag[1] in selected_tags:
+    #     self.data.insert("tags_hours", [tag[0], new_hour['id']])
+
+    for tag in selected_tags:
+      self.data.insert("tags_hours", [tag, new_hour['id']])
 
 
   # def updateDisplayDay(self):
