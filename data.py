@@ -133,6 +133,28 @@ class PreciousData():
     return data      
 
 
+  def update(self, item, id, values):
+    # connect to db and initialize cursor
+    conn = sqlite3.connect(self.db_path)
+    c = conn.cursor()
+
+    # build update str from values dict
+    val_str = ""
+    val_list = []
+    for (key,val) in values.items():
+      val_str += key + " = ? "
+      val_list.append(val)
+
+    # id is the last in tuple for ? in db query
+    val_list.append(id)
+
+    if item == "tags":
+      c.execute("UPDATE {0} SET {1} WHERE rowid=?".format(item, val_str), tuple(val_list))
+      conn.commit()
+    
+    conn.close()
+
+
   def get_tags(self, item, id):
     # connect to db and initialize cursor
     conn = sqlite3.connect(self.db_path)

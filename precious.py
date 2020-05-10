@@ -99,6 +99,7 @@ class PreciousWindow():
     self.edit_tags = False
     self.curr_rating = 0
     self.menu_visible = False
+    self.settings_visible = False
     self.selected_tags = []
 
     # base theme
@@ -202,8 +203,18 @@ class PreciousWindow():
       
       select_tags_layout.append(
         [
-          sg.Text("#",         pad=((5,0),(5,5)), key="hash_tag" + str(tag['id']),   text_color=self.tag_hash_color, background_color=bg_color, enable_events=True), 
-          sg.Text(tag['name'], pad=((0,5),(5,5)), key="select_tag" + str(tag['id']), text_color=text_color,          background_color=bg_color, enable_events=True)
+          sg.Text("#", pad=((5,0),(5,5)), key="hash_tag" + str(tag['id']), text_color=self.tag_hash_color, background_color=bg_color, enable_events=True), 
+          sg.Text(
+            # "#" + 
+            tag['name'], 
+            pad=((0,0),(5,5)), 
+            key="select_tag" + str(tag['id']), 
+            text_color=text_color,
+            background_color=bg_color,
+            enable_events=True,
+            justification='left',
+            size=(len(tag['name']),1)
+          )
         ]
       )
       edit_tags_layout.append(
@@ -213,7 +224,12 @@ class PreciousWindow():
     # both select and edit tags need a line at the end to center tags over the whole column width
     select_tags_layout.append([sg.Text("", size=(27,1))])
     # edit tags needs buttons
-    edit_tags_layout.append([sg.Button("cancel", key="cancel_edit_tags"), sg.Button("save tags", key="save_tags")])
+    edit_tags_layout.append(
+      [
+        sg.Button("save tags", key="save_tags", pad=((5,5),(15,5))),
+        sg.Button("cancel", key="cancel_edit_tags", pad=((5,5),(15,5)), button_color=(sg.theme_text_color(), self.dark_column_background_color)), 
+      ]
+    )
     edit_tags_layout.append([sg.Text("", size=(27,1))])
 
     # main column
@@ -233,8 +249,8 @@ class PreciousWindow():
           key="menu", 
           border_width=0, 
           size=(1,1),
-          font='Roboto 14',
-          button_color=(sg.theme_text_color(), sg.theme_background_color()), 
+          font='Roboto 18',
+          button_color=(sg.theme_text_color(), self.dark_column_background_color), 
           pad=((5, 5), (15, 5))
         )
       ],
@@ -302,15 +318,24 @@ class PreciousWindow():
 
     # menu column
     column3 = [
-      [sg.Text("", justification='left', font='Roboto 16 normal', background_color=sg.theme_background_color(), pad=((5,5),(15,5)) )],
-      [sg.Button("view plot",   key="plot",      button_color=(sg.theme_text_color(), sg.theme_background_color()))],
-      [sg.Button("review days", key="log_days",  button_color=(sg.theme_text_color(), sg.theme_background_color()))],
-      [sg.Button("edit tags",   key="edit_tags", button_color=(sg.theme_text_color(), sg.theme_background_color()))],
-      [sg.Text("-" * 18, size=(14,1), justification='center', background_color=sg.theme_background_color() )],
-      [sg.Checkbox("dark mode", default=True)],
-      [sg.Checkbox("24 hour mode", disabled=True)],
-      [sg.Checkbox("encryption", disabled=True)],
-      [sg.Checkbox("tip of the day", disabled=True)],
+      [sg.Text("x", font='Roboto 18 normal', size=(10,1), justification='center',  key="close_menu", text_color=sg.theme_text_color(), background_color=sg.theme_background_color(), pad=((5,5),(15,15)), enable_events=True )],
+      [sg.Button("view plot",   key="plot",       button_color=(sg.theme_text_color(), sg.theme_background_color()))],
+      [sg.Button("edit tags",   key="edit_tags",  button_color=(sg.theme_text_color(), sg.theme_background_color()))],
+      [sg.Button("review days", key="log_days",   button_color=(sg.theme_text_color(), sg.theme_background_color()), disabled=True)],
+      [sg.Button("settings",    key="settings",   button_color=(sg.theme_text_color(), sg.theme_background_color()))],
+
+      [
+        sg.Column(key="settings_column", element_justification='left', visible=self.settings_visible,
+          layout=[
+            [sg.Text("_" * 14, size=(15,1), justification='center', background_color=sg.theme_background_color() )],
+            [sg.Text("", size=(15,1), justification='center', background_color=sg.theme_background_color() )],
+            [sg.Checkbox("dark mode", key="dark_mode", default=True, disabled=True)],
+            [sg.Checkbox("24 hour mode", key="hour_mode", disabled=True)],
+            [sg.Checkbox("encryption", key="encryption_mode", disabled=True)],
+            [sg.Checkbox("tip of the day", key="tip_mode", disabled=True)],
+          ]
+        )
+      ]
     ]
 
     # columns of the main window
@@ -330,7 +355,7 @@ class PreciousWindow():
         sg.Column(
           column3,
           key="menu_column",
-          element_justification='left',
+          element_justification='center',
           pad=((0,0),(0,0)),
           visible=self.menu_visible
         ),
@@ -441,10 +466,13 @@ class PreciousWindow():
       else:
         text_color = self.tag_text_color
         bg_color = self.tag_background_color
-      
+
+      self.window["select_tag" + str(tag['id'])].set_size(size=(len(tag['name']),1))
+      self.window.Finalize()
       self.window["select_tag" + str(tag['id'])].Update(value=tag['name'], text_color=text_color, background_color=bg_color)
       self.window["hash_tag" + str(tag['id'])].Update(background_color=bg_color)
       self.window["edit_tag" + str(tag['id'])].Update(value=tag['name'])
+      self.window.Finalize()
 
 
   def select_tag(self, tag_label):
@@ -466,6 +494,14 @@ class PreciousWindow():
     self.window['tags_edit'].Update(visible=False)
     self.window['tags_click'].Update(visible=True)
     self.edit_tags = False
+
+
+  def save_tags(self, values):
+    tags = self.app.get_tags()
+    for tag in tags:
+      self.app.save_tag(tag['id'], values['edit_tag' + str(tag['id'])])
+    
+    self.update_hour()
 
 
   def current_hour(self):
@@ -555,6 +591,29 @@ class PreciousWindow():
       sleep(0.005 * float(delay))
 
 
+  def toggle_menu(self, state = None):
+    if state is None:
+      self.menu_visible = not self.menu_visible
+    else:
+      self.menu_visible = bool(state)
+
+    if self.menu_visible:
+      self.window['menu'].Update(button_color=(sg.theme_text_color(), sg.theme_background_color()))
+    else:
+      self.window['menu'].Update(button_color=(sg.theme_text_color(), self.dark_column_background_color))
+
+    self.window['menu_column'].Update(visible=self.menu_visible)
+    self.window.Finalize()
+
+
+  def toggle_settings(self, state = None):
+    if state is None:
+      self.settings_visible = not self.settings_visible
+    else:
+      self.settings_visible = bool(state)
+
+    self.window['settings_column'].Update(visible=self.settings_visible)
+    self.window.Finalize()
 
 
 if __name__ == "__main__":
@@ -610,8 +669,13 @@ if __name__ == "__main__":
 
     # open/close menu
     elif event == "menu":
-      w.menu_visible = not w.menu_visible
-      w.window['menu_column'].Update(visible=w.menu_visible)
+      w.toggle_menu()
+
+    elif event == "close_menu":
+      w.toggle_menu(False)
+
+    elif event == "settings":
+      w.toggle_settings()
 
     # start editing tags
     elif event == "edit_tags":
@@ -626,7 +690,7 @@ if __name__ == "__main__":
 
     # save tags and stop editing tags
     elif event == "save_tags":
-      print('TODO: save tags')
+      w.save_tags(values)
       w.cancel_edit_tags()
 
     # select tag

@@ -142,6 +142,10 @@ class PreciousApp:
     return tags
 
 
+  def save_tag(self, id, name):
+    self.data.update("tags", id, {"name": name})
+
+
   # def save_tags(self, tags):
   #   self.data.delete_all("tags")
   #   self.add_tags(tags)
@@ -182,15 +186,6 @@ class PreciousApp:
 
 
   # def updateDisplayDay(self):
-  #   """
-  #   Updates the displayed date in the interface
-  #   """
   #   self.hourLabel.setStringValue_(self.curr_time.strftime('%a %d %b, %I %p'))
   #   self.dayLabel.setStringValue_(self.curr_time.strftime('%a %d %b'))
   #   self.dayButton.setAttributedTitle_(self.curr_time.strftime('%a %d %b'))
-  #   if self.reflection:
-  #     self.dayField.setStringValue_(self.reflection)
-  #     self.dayLabel.setTextColor_(NSColor.blackColor())
-  #   else:
-  #     self.dayField.setStringValue_('')
-  #     self.dayLabel.setTextColor_(NSColor.redColor())

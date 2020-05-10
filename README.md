@@ -47,7 +47,7 @@ should offer to go to Next day which rolls hours so that 1AM is at the top
 - [x] Default tags should be: “work”, “self-development”, “sport”, “family”, “friends”
 - [x] Design the colours fully for dark mode, use green colours from the logo — nice to keep the theme going
 - [x] Tags edit function should be less hidden -- Upd: done in a minimal way now, open editing from menu.
-- [ ] Save tags should save them (not working yet)
+- [x] Save tags
 - [ ] Save last window position and open app window where it was last opened
 - [ ] How to make a perma-app in sidebar on Linux/Mac/Windows -- Work it out, release the app.
 
@@ -64,4 +64,4 @@ should offer to go to Next day which rolls hours so that 1AM is at the top
 - [ ] Settings: Choose between 24hr OR PM/AM mode
 - [ ] Settings: Show tip of the day on launch on/off
 - [ ] Tip of the day: a separate little window with a tip, would be cool to draw isometric art for this i.e. “look at yourself from a 3rd person view — person at a phone sitting with a health bar?” Create a few tips and show them at random. Tips are shown at launch of the setting is not off (default: on)
-- [ ] May be Delete/add tags (as many as you want?)
+- [ ] May be Delete/add tags (as many as you want?) + scrollable column of tags
