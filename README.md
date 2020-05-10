@@ -49,19 +49,33 @@ should offer to go to Next day which rolls hours so that 1AM is at the top
 - [x] Tags edit function should be less hidden -- Upd: done in a minimal way now, open editing from menu.
 - [x] Save tags
 - [ ] Save last window position and open app window where it was last opened
+- [ ] Add/delete tags, delete should ask for confirmation (popup) as it deletes all connections too
+- [ ] 5 tags used lately shown at the top. Click "more" - open scrollable column of all tags
+- [ ] Edit tags should have a scrollable column with input texts
 - [ ] How to make a perma-app in sidebar on Linux/Mac/Windows -- Work it out, release the app.
 
+After these are done -- the app v0.5beta will be released.
 
-## Features for later:
+## Features for later 
+In order of importance from high (to be done first) to low.
 
-- [ ] Button up from 5AM should offer to go to Previous day which rolls hours so that 5AM is at the bottom. Below 12AM 
+The list below once complete will be v1.0 of the app:
+
 - [ ] “Review days” in menu should load the day logging — text area should the day, label shows day, save button has “save day”, need somewhere “back to hours” which leads to the current hour of the chosen day. List of hours should show days in the day mode. Now button should be “today”.
-- [ ] Plotting of data
+- [ ] Export and import data (save things, backup db etc.) -- can be in settings for simplicity
+- [ ] Plotting: overview of the day -- all hours
+- [ ] Plotting: overview of the week -- days with good/neutral/bad hours stacked per each day so you can see the comparison
+- [ ] Plotting: overview of the month (same as week)
+- [ ] Plotting: by tag -- day/week/month
+- [ ] Plotting: main page -- insights -- deduce best times of the day etc.
+
+V1+ list (nice to have later, but can live without):
+
+- [ ] Settings: Choose between 24hr OR PM/AM mode
+- [ ] Encryption: encrypt when saving, decrypt when showing. Do with dummy auto password as first to test
+- [ ] Encryption: need to set up password for encryption and use it to encrypt, don't forget to show warnings, offer to backup existing data before encrypting
+- [ ] Button up from 5AM should offer to go to Previous day which rolls hours so that 5AM is at the bottom. Below 12AM 
 - [ ] Design the colours fully for light mode, use green colours from the logo — nice to keep the theme going
 - [ ] Settings: dark mode / light mode
-- [ ] Encryption: encrypt when saving, decrypt when showing. Do with dummy auto password as first to test
-- [ ] Settings: need to set up password for encryption and switch encryption on/off
-- [ ] Settings: Choose between 24hr OR PM/AM mode
 - [ ] Settings: Show tip of the day on launch on/off
 - [ ] Tip of the day: a separate little window with a tip, would be cool to draw isometric art for this i.e. “look at yourself from a 3rd person view — person at a phone sitting with a health bar?” Create a few tips and show them at random. Tips are shown at launch of the setting is not off (default: on)
-- [ ] May be Delete/add tags (as many as you want?) + scrollable column of tags
