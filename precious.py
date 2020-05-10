@@ -377,7 +377,10 @@ class PreciousWindow():
     )
 
     # icon for the app (TODO: test)
-    self.window.set_icon(None, get_icon())
+    try:
+      self.window.set_icon(None, get_icon())
+    except e:
+      print("Could not source the icon: please report this to the developer and mention your OS/platform")
 
     self.window.bind("<Up>", "prev")
     self.window.bind("<Down>", "next")
@@ -618,7 +621,7 @@ class PreciousWindow():
 
 if __name__ == "__main__":
 
-  reset_db("data.db")
+  # reset_db("data.db")
 
   w = PreciousWindow()
 

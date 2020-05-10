@@ -90,23 +90,22 @@ def reset_db(db_path):
   conn = sqlite3.connect(db_path)
   c = conn.cursor()
 
-  c.execute("SELECT rowid,* FROM tags")
-  data = c.fetchall()
+#   c.execute("SELECT rowid,* FROM tags")
+#   data = c.fetchall()
 
-  # for kat's thing
-  if len(data) < 5:
-    print("reseting tags")
-    c.execute('''DELETE FROM tags ''')
-    conn.commit()
-    c.execute('''INSERT INTO tags VALUES 
-                    ('work'),
-                    ('self-development'),
-                    ('sport'),
-                    ('family'),
-                    ('friends')
-              ''')
-    print(c.lastrowid)
-    conn.commit()
+#   if len(data) < 5:
+#     print("reseting tags")
+#     c.execute('''DELETE FROM tags ''')
+#     conn.commit()
+#     c.execute('''INSERT INTO tags VALUES 
+#                     ('work'),
+#                     ('self-development'),
+#                     ('sport'),
+#                     ('family'),
+#                     ('friends')
+#               ''')
+#     print(c.lastrowid)
+#     conn.commit()
 
 #   c.execute('''DROP TABLE IF EXISTS hours''')
 #   conn.commit()
